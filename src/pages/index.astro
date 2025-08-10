@@ -1,0 +1,22 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import siteData from "../data/site.json";
+import SectionViewer from "../components/reactive/SectionViewer.svelte";
+import { getCollection } from 'astro:content';
+
+const sections = (await getCollection('sections')).sort(
+  (a, b) => b.data.order - a.data.order,
+);
+---
+
+<!doctype html>
+<html lang="en" class="bg-primary-400">
+  <head>
+    <BaseHead pageTitle={siteData.siteTitle} pageDescription={siteData.siteDescription} />
+  </head>
+  <body>
+    <main class="min-h-svh">
+      <SectionViewer sections={sections} client:load />
+    </main>
+  </body>
+</html>

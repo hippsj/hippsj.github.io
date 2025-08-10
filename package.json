@@ -1,0 +1,22 @@
+{
+  "name": "screenwheel",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^7.0.6",
+    "@tailwindcss/vite": "^4.0.14",
+    "astro": "^5.5.2",
+    "svelte": "^5.23.0",
+    "tailwindcss": "^4.0.14",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
+  }
+}

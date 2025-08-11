@@ -2,6 +2,7 @@
   "name": "screenwheel",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "10.14.0",
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",

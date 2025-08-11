@@ -6,7 +6,7 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://hippsj.github.io',
+    site: 'https://jordinhipps.com',
     integrations: [svelte()],
     vite: {
         plugins: [tailwindcss()],

@@ -23,7 +23,7 @@
         </div>
     {:else}
         <div class="flex-1 h-lvh flex items-center justify-center text-gray-500">
-            No sections available.
+            I'm working on adding more content here. Please check back soon!
         </div>
     {/if}
 </div>

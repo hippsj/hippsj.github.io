@@ -5,7 +5,7 @@ content:
   - name: pages
     label: Pages
     type: collection
-    path: 'src/pages'
+    path: 'src/content/sections'
     view:
       fields: [ title, published, includeInNavbar ]
     fields:

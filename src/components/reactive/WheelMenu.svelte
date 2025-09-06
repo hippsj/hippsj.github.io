@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import type { CollectionEntry } from "astro:content";
-	
+	import * as user from '../../data/user.json';
+
 	export let items: CollectionEntry<'sections'>[];
 	export let onSelect: (item: CollectionEntry<'sections'>) => void;
 	let selectedItem: CollectionEntry<'sections'> = items[0];
@@ -104,7 +105,7 @@
 </style>
 
 <div class="flex flex-col justify-between p-8 text-right text-primary-foreground bg-primary h-dvh">
-	<h1 class="text-xl hover:-translate-x-2">Name Lastname</h1>
+	<h1 class="text-xl hover:-translate-x-2">{user.userName}</h1>
 
 	<div
 		bind:this={scrollContainer}
@@ -142,7 +143,7 @@
 	</div>
  
 	<footer class="pt-4">
-		<a class="text-xl hover:-translate-x-2" href="mailto:user@email.com">user@email.com</a>
+		<a class="text-xl hover:-translate-x-2" href="mailto:user@email.com">{user.userEmail}</a>
 		<p class="text-sm opacity-60">Site design & development by Kadir Lofca.</p>
 	</footer>
 </div>

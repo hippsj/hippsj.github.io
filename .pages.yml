@@ -1,0 +1,68 @@
+media:
+  input: src/media
+  output: /media
+content:
+  - name: pages
+    label: Pages
+    type: collection
+    path: 'src/pages'
+    view:
+      fields: [ title, published, includeInNavbar ]
+    fields:
+      - name: published
+        label: Published
+        type: boolean
+        default: false
+      - name: includeInNavbar
+        label: Include In Navbar
+        type: boolean
+        default: false
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: body
+        label: Body
+        type: rich-text
+  - name: site
+    label: Site Settings
+    path: src/data/site.json
+    type: file
+    fields:
+      - name: siteTitle
+        label: Site Title
+        type: string
+      - name: siteDescription
+        label: Site Description
+        type: string
+      - name: siteUrl
+        label: Site URL
+        type: string
+  - name: user
+    label: User Information
+    path: src/data/user.json
+    type: file
+    fields:
+      - name: userName
+        label: Full Name 
+        type: string
+      - name: userEmail
+        label: Email
+        type: string
+      - name: userSocials
+        label: Socials
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: url
+            label: URL
+            type: string

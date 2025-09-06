@@ -1,11 +1,11 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import siteData from "../data/site.json";
+import * as siteData from "../data/site.json";
 import SectionViewer from "../components/reactive/SectionViewer.svelte";
 import { getCollection } from 'astro:content';
 
 const sections = (await getCollection('sections')).sort(
-  (a, b) => b.data.order - a.data.order,
+  (a: { data: { order: number } }, b: { data: { order: number } }) => b.data.order - a.data.order,
 );
 ---
 

@@ -1,7 +1,7 @@
 ---
 published: true
 includeInNavbar: true
-title: another test page
+title: About Me
 description: jordin!!! <3<3
 tags:
   - tag

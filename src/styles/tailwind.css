@@ -1,24 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Borel&family=Domine:wght@400..700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "tailwindcss/preflight.css" layer(base);
 
-
 @theme {
-  /* COLOR */
-  --color-primary: hsl(270, 30%, 60%);
-  --color-primary-400: hsl(270, 20%, 85%);
-  --color-primary-foreground: hsl(20, 30%, 95%);
+	/* COLOR */
+	--color-primary: hsl(270, 30%, 60%);
+	--color-primary-400: hsl(270, 20%, 85%);
+	--color-primary-foreground: hsl(20, 30%, 95%);
 
-  /* FONT */
-  --font-primary: Domine, system-ui;
+	/* FONT */
+	--font-primary: "Quicksand", system-ui;
 }
 
 @layer base {
-  :root {
-    color: var(--color-primary-foreground);
-    font-family: var(--font-primary);
-  }
+	:root {
+		color: var(--color-primary-foreground);
+		font-family: var(--font-primary);
+	}
 }

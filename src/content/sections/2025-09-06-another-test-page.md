@@ -12,4 +12,9 @@ Jordin is a recent graduate of UNC Greensboro in Social Media Marketing. She rea
 
 Through her experience she’s become comfortable using tools like Canva, Affinity Designer, and data tools to research market segments and demographic trends. She is also passionate about learning and growing her skillset to tell a story and bring people together.
 
+|     |     |     |
+| --- | --- | --- |
+|     | ![](/media/IMG_7999.jpg) |     |
+|     |     |     |
+
 ![](/media/IMG_7999.jpg)

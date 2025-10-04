@@ -1,6 +1,6 @@
 media:
-  input: src/content/media
-  output: /content/media
+  input: public/media
+  output: /media
 content:
   - name: sections
     label: Sections

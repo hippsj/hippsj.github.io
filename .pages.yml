@@ -1,13 +1,13 @@
 media:
-  input: src/media
-  output: /media
+  input: src/content/media
+  output: /content/media
 content:
-  - name: pages
-    label: Pages
+  - name: sections
+    label: Sections
     type: collection
-    path: 'src/content/sections'
+    path: "src/content/sections"
     view:
-      fields: [ title, published, includeInNavbar ]
+      fields: [title, published, includeInNavbar]
     fields:
       - name: published
         label: Published
@@ -50,7 +50,7 @@ content:
     type: file
     fields:
       - name: userName
-        label: Full Name 
+        label: Full Name
         type: string
       - name: userEmail
         label: Email

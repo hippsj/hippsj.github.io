@@ -17,7 +17,7 @@
     {#if sections && sections.length > 0}
         <WheelMenu items={sections} onSelect={handleSelect} />
         <div class="flex-1 h-lvh primary-400 flex items-center">
-            <article class="prose-xl text-black font-medium w-full p-8">
+            <article class="prose-xl prose-img:rounded-4xl prose-img:max-w-90 text-black font-medium w-full p-12">
                 {@html sectionHtml}
             </article>
         </div>

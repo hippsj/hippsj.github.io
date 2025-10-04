@@ -104,8 +104,8 @@
 	}
 </style>
 
-<div class="flex flex-col justify-between p-8 text-right text-primary-foreground bg-primary h-dvh">
-	<h1 class="text-xl hover:-translate-x-2">{user.userName}</h1>
+<div class="flex flex-col justify-between p-12 text-right text-primary-foreground bg-primary h-dvh max-w-96 w-96">
+	<a href="/"><h1 class="text-xl hover:-translate-x-2 transition-all">{user.userName}</h1></a>
 
 	<div
 		bind:this={scrollContainer}
@@ -143,7 +143,7 @@
 	</div>
  
 	<footer class="pt-4">
-		<a class="text-xl hover:-translate-x-2" href="mailto:user@email.com">{user.userEmail}</a>
-		<p class="text-sm opacity-60">Site design & development by Kadir Lofca.</p>
+		<a href="mailto:user@email.com"><div class="text-xl hover:-translate-x-2 transition-all">{user.userEmail}</div></a>
+		<!-- <p class="text-xs opacity-40">Site design & development by Kadir Lofca.</p> -->
 	</footer>
 </div>

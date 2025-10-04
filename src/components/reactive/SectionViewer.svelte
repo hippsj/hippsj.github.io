@@ -13,10 +13,10 @@
     $: sectionHtml = selectedSection && selectedSection.rendered ? selectedSection.rendered.html : '';
 </script>
 
-<div class="flex flex-row w-full">
+<div class="flex flex-row w-full items-center min-h-screen">
     {#if sections && sections.length > 0}
         <WheelMenu items={sections} onSelect={handleSelect} />
-        <div class="flex-1 h-lvh primary-400">
+        <div class="flex-1 h-lvh primary-400 flex items-center">
             <article class="prose-xl text-black font-medium w-full p-8">
                 {@html sectionHtml}
             </article>

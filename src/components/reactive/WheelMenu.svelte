@@ -6,6 +6,7 @@
 	export let items: CollectionEntry<'sections'>[];
 	export let onSelect: (item: CollectionEntry<'sections'>) => void;
 	let selectedItem: CollectionEntry<'sections'> = items[0];
+	let closestItem: CollectionEntry<'sections'> | null = selectedItem;
 	let scrollContainer: HTMLDivElement;
 
 	$: selectedIndex = items.findIndex(i => i.id === selectedItem.id);
@@ -57,14 +58,15 @@
 		requestAnimationFrame(animateScroll);
 	}
 
-	function getClosestItemToCenter(): CollectionEntry<'sections'> | null {
-		if (!scrollContainer) return null;
+	function getClosestItemToCenter(): { item: CollectionEntry<'sections'> | null; button: HTMLButtonElement | null } {
+		if (!scrollContainer) return { item: null, button: null };
 
 		const containerRect = scrollContainer.getBoundingClientRect();
 		const centerY = containerRect.top + containerRect.height / 2;
 
 		const buttons = scrollContainer.querySelectorAll('button');
 		let closestItem: CollectionEntry<'sections'> | null = null;
+		let closestButton: HTMLButtonElement | null = null;
 		let closestDistance = Infinity;
 
 		buttons.forEach((btn, index) => {
@@ -75,22 +77,30 @@
 			if (distance < closestDistance) {
 				closestDistance = distance;
 				closestItem = items[index];
+				closestButton = btn as HTMLButtonElement;
 			}
 		});
 
-		return closestItem;
+		return { item: closestItem, button: closestButton };
 	}
 
 	let scrollTimeout: ReturnType<typeof setTimeout>;
 	function handleScroll() {
+		const { item: closest } = getClosestItemToCenter();
+		closestItem = closest;
+
 		clearTimeout(scrollTimeout);
 		scrollTimeout = setTimeout(() => {
-			const closest = getClosestItemToCenter();
-			if (closest && closest.id !== selectedItem.id) {
-				selectedItem = closest;
+			const { item, button } = getClosestItemToCenter();
+
+			if (item && item.id !== selectedItem.id && button) {
+				selectedItem = item;
 				onSelect(selectedItem);
 			}
-		}, 1);
+
+			const selectedButton = scrollContainer.querySelector(`button[id="${selectedItem.id}"]`) as HTMLButtonElement;
+			if (selectedButton) centerElementInView(selectedButton);
+		}, 300);
 	}
 </script>
 
@@ -101,6 +111,17 @@
 	.scrollbar-hide {
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+	}
+
+	.button {
+		transform: rotateX(var(--rotate, 0deg)) translateX(var(--translate, 0));
+		font-size: var(--font-size, 3rem);
+		opacity: var(--opacity, 1);
+		transition: transform 0.2s ease, font-size 0.2s ease, opacity 0.2s ease;
+	}
+
+	.button:hover {
+		transform: rotateX(var(--rotate, 0deg)) translateX(-0.5rem);
 	}
 </style>
 
@@ -122,17 +143,9 @@
 						centerElementInView(e.currentTarget);
 						onSelect(item);
 					}}
-					class="transition-all text-5xl cursor-pointer sm:hover:-translate-x-2"
-					style={
-						"opacity: " +
-						mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length) +
-						"; transform: rotateX(" +
-						mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1) +
-						"deg);" +
-						"font-size: " +
-						mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 3, 2, 8) +
-						"rem;"
-					}
+					id={item.id}
+					class="transition-all text-5xl cursor-pointer button"
+					style="--rotate: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1)}deg; --translate: {item.id === closestItem?.id && item.id !== selectedItem.id ? '-0.5rem' : '0'}; --font-size: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 3, 2, 8)}rem; --opacity: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length)};"
 				>
 					{item.data.title}
 				</button>
@@ -143,7 +156,7 @@
 	</div>
  
 	<footer class="pt-4">
-		<a href="mailto:user@email.com"><div class="text-xl hover:-translate-x-2 transition-all">{user.userEmail}</div></a>
+		<a href='mailto:${user.userEmail}'><div class="text-xl hover:-translate-x-2 transition-all">{user.userEmail}</div></a>
 		<!-- <p class="text-xs opacity-40">Site design & development by Kadir Lofca.</p> -->
 	</footer>
 </div>

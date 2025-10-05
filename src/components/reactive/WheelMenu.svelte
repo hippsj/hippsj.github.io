@@ -156,7 +156,13 @@
 	</div>
  
 	<footer class="pt-4">
-		<a href='mailto:${user.userEmail}'><div class="text-xl hover:-translate-x-2 transition-all">{user.userEmail}</div></a>
-		<!-- <p class="text-xs opacity-40">Site design & development by Kadir Lofca.</p> -->
+		<div class="flex gap-4 pb-2 justify-end text-right">
+			{#each user.userSocials as social}
+				<a href={social.url} target="_blank" rel="noopener noreferrer" class="text-xl hover:-translate-x-2 transition-all" aria-label={social.title}>{social.title}</a>
+			{/each}
+		</div>
+			<a href='mailto:${user.userEmail}'><div class="text-xl hover:-translate-x-2 transition-all">{user.userEmail}</div></a>
+			<!-- <p class="text-xs opacity-40">Site design & development by Kadir Lofca.</p> -->
+		
 	</footer>
 </div>

@@ -125,7 +125,9 @@
 	}
 </style>
 
-<div class="flex flex-col justify-between p-12 text-right text-primary-foreground bg-primary h-dvh max-w-96 w-96">
+<div class="h-full w-96 max-w-96 min-w-96"></div>
+
+<div class="fixed top-0 left-0 flex flex-col justify-between p-12 text-right text-primary-foreground bg-primary h-dvh max-w-96 w-96">
 	<a href="/"><h1 class="text-xl hover:-translate-x-2 transition-all">{user.userName}</h1></a>
 
 	<div

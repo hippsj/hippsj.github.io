@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 includeInNavbar: true
 title: Makeup Artist Marketing Proposal
 description: Marketing proposal for small business owner, Flora Makeup Studio.

@@ -14,3 +14,5 @@ tags:
 | --- | --- | --- |
 |     | Working closely with my team, I contributed to shaping the **branding and marketing mix**, ensuring our ideas reflected Flora’s elegant, modern identity. |     |
 | I helped design **social media posts and signage** with **Canva** to bring our strategy to life visually. The final proposal gave Flora Makeup Studio a clear path to strengthen its brand presence and connect authentically with its community. |     |     |
+
+/code

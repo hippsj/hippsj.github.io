@@ -146,8 +146,8 @@
 						onSelect(item);
 					}}
 					id={item.id}
-					class="transition-all text-5xl cursor-pointer button"
-					style="--rotate: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1)}deg; --translate: {item.id === closestItem?.id && item.id !== selectedItem.id ? '-0.5rem' : '0'}; --font-size: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 3, 2, 8)}rem; --opacity: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length)};"
+					class="transition-all text-5xl cursor-pointer button text-right"
+					style="--rotate: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1)}deg; --translate: {item.id === closestItem?.id && item.id !== selectedItem.id ? '-0.5rem' : '0'}; --font-size: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 3, 1.75, 8)}rem; --opacity: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length)};"
 				>
 					{item.data.title}
 				</button>

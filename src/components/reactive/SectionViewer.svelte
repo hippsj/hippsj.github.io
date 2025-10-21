@@ -23,7 +23,7 @@
         
     {#if sections && sections.length > 0}
         <div class="flex-1 h-lvh primary-400 flex items-center justify-center">
-            <article class="prose-xl prose-img:rounded-4xl prose-img:max-w-90 prose-img:m-12 text-black font-medium w-full p-12 h-full flex items-center justify-center transition-opacity duration-300 {isTransitioning ? 'opacity-0' : 'opacity-100'}">
+            <article class="prose-xl prose-img:rounded-4xl prose-img:max-w-90 prose-img:m-12 text-black font-medium w-full p-9 h-full flex items-center justify-center transition-opacity duration-300 {isTransitioning ? 'opacity-0' : 'opacity-100'}">
                 <div class="w-full">
                     {@html sectionHtml}
                 </div>

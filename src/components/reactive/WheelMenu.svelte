@@ -125,9 +125,9 @@
 	}
 </style>
 
-<div class="h-full w-96 max-w-96 min-w-96"></div>
+<div class="h-full w-100 max-w-100 min-w-100"></div>
 
-<div class="fixed top-0 left-0 flex flex-col justify-between p-12 text-right text-primary-foreground bg-primary h-dvh max-w-96 w-96">
+<div class="fixed top-0 left-0 flex flex-col justify-between p-8 text-right text-primary-foreground bg-primary h-dvh max-w-100 w-100">
 	<a href="/"><h1 class="text-xl hover:-translate-x-2 transition-all">{user.userName}</h1></a>
 
 	<div
@@ -147,7 +147,7 @@
 					}}
 					id={item.id}
 					class="transition-all text-5xl cursor-pointer button text-right"
-					style="--rotate: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1)}deg; --translate: {item.id === closestItem?.id && item.id !== selectedItem.id ? '-0.5rem' : '0'}; --font-size: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 3, 1.75, 8)}rem; --opacity: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length)};"
+					style="--rotate: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 0, 30, 1)}deg; --translate: {item.id === closestItem?.id && item.id !== selectedItem.id ? '-0.5rem' : '0'}; --font-size: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 2.3, 1.6, 8)}rem; --opacity: {mapValueExponential(Math.abs(index - selectedIndex), 0, items.length, 1, 0, 0.4 * items.length)};"
 				>
 					{item.data.title}
 				</button>

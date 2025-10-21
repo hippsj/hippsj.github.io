@@ -1,7 +1,7 @@
 ---
 published: true
 includeInNavbar: true
-title: Marketing Proposal
+title: Small Business Marketing Proposal
 description: Marketing proposal for small business owner, Flora Makeup Studio.
   Created social media posts, competitor and industry trend analysis, and
   marketing strategy.

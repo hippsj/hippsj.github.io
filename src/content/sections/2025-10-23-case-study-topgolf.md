@@ -2,6 +2,9 @@
 published: true
 includeInNavbar: true
 title: "Case Study: Topgolf"
+description: I analyzed Topgolf at Greensboro’s customer experience, audience
+  segments, and promotional opportunities to create a targeted marketing
+  strategy
 tags:
   - casestudy
   - marketing campaign

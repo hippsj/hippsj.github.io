@@ -1,7 +1,10 @@
 ---
-published: false
-includeInNavbar: false
+published: true
+includeInNavbar: true
 title: "Case Study: Topgolf"
+tags:
+  - casestudy
+  - marketing campaign
 ---
 For this project, I analyzed Topgolf at Greensboro’s customer experience, audience segments, and promotional opportunities to create a targeted marketing strategy. 
 
@@ -11,14 +14,14 @@ For this project, I analyzed Topgolf at Greensboro’s customer experience, audi
     
 *   Reviewed positive and negative customer reviews to understand what drives satisfaction and where there were areas of improvement. 
     
-*   Developed four strategic suggestions to improve engagement and strengthen customer experience. 
+*   Developed four strategic suggestions to improve engagement and strengthen customer experience.
     
 
 **Customer Segmentation:** 
 
 *   Identified 14 potential customer segments based on demographics, lifestyle, and interests. 
     
-*   Selected two priority segments to bring engagement within different demographics and lifestyles. 
+*   Selected two priority segments to bring engagement within different demographics and lifestyles.
     
 
 **Campaign Development:** 

@@ -13,11 +13,12 @@ export default defineConfig({
     },
     watch: {
       ignored: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/dist/**',
-        '**/.astro/**',
-        '/nix/store/**'
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/dist/**",
+        "**/.astro/**",
+        "/nix/store/**",
       ],
+    },
   },
 });

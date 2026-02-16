@@ -1,5 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import "@/global.css";
+import BaseHead from "@/components/BaseHead.astro";
 import { PortfolioApp } from "@/components/PortfolioApp";
 import { getCollection } from "astro:content";
 import { renderMarkdown } from "@/lib/markdown";
@@ -22,6 +23,12 @@ const sections = sortedSections.map((section) => ({
 }));
 ---
 
-<Layout>
-    <PortfolioApp client:load sections={sections} />
-</Layout>
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead />
+    </head>
+    <body class="bg-background text-foreground antialiased overflow-hidden">
+        <PortfolioApp client:load sections={sections} />
+    </body>
+</html>

@@ -1,11 +1,11 @@
 media:
-  input: public/content-media
-  output: /content-media
+  input: development/public/content-media
+  output: development/content-media
 content:
   - name: sections
     label: 📑 Sections
     type: collection
-    path: "src/content/sections"
+    path: "development/src/content/sections"
     view:
       fields: [title, published]
     fields:
@@ -24,7 +24,7 @@ content:
         type: rich-text
   - name: site
     label: ⚙️ Site Settings
-    path: src/content/site.json
+    path: development/src/content/site.json
     type: file
     fields:
       - name: siteTitle
@@ -35,7 +35,7 @@ content:
         type: string
   - name: user
     label: 🤠 User Information
-    path: src/content/user.json
+    path: development/src/content/user.json
     type: file
     fields:
       - name: userName

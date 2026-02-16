@@ -9,6 +9,8 @@ This document outlines the technical architecture, technology stack, and impleme
 ### Core Technologies
 -   **Framework:** [Astro](https://astro.build/) (v5)
     -   Utilizes Static Site Generation (SSG) for performance and SEO.
+-   **CMS:** [PagesCMS](https://pagescms.org/)
+    -   Open-source CMS for static sites that interacts directly with GitHub.
 -   **UI Library:** [React](https://react.dev/)
     -   Powers the interactive `PortfolioApp`, `WheelMenu`, and `SectionViewer` components.
 -   **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
@@ -24,6 +26,8 @@ This document outlines the technical architecture, technology stack, and impleme
     -   Provides the core 3D wheel interaction.
 -   **Markdown Parser:** `markdown-it`
     -   Converts markdown body to HTML strings for React rendering.
+-   **Animations:** `framer-motion`
+    -   Handles smooth content transitions and exit animations.
 -   **Icons:** `lucide-react`
     -   Standard icon set for UI elements.
 
@@ -52,7 +56,7 @@ This document outlines the technical architecture, technology stack, and impleme
     -   `PortfolioApp.tsx` listens for `popstate` events and uses `pushState` to update the URL as the user scrolls or clicks.
 3.  **Wheel Component:**
     -   Merged the `@ncdai/wheel-picker` shadcn primitive directly into `WheelMenu.tsx` for a self-contained component.
-    -   **Physics Tuning:** Set `scrollSensitivity` to `1` to achieve a discrete, "snap-to-item" feel instead of wild velocity scrolling.
+    -   **Physics Tuning:** Set `scrollSensitivity` to `7` for a balanced response and `visibleCount` to `20` to ensure a smooth "wheel" curve.
     -   **Aesthetics:** Removed all background colors and borders from the wheel elements to ensure it blends seamlessly with the page background.
 
 ---
@@ -60,14 +64,20 @@ This document outlines the technical architecture, technology stack, and impleme
 ## v3: Content Engine
 
 ### Implementation Details
-1.  **Content Collections:**
+1.  **Content Management (PagesCMS):**
+    -   Integration with [PagesCMS](https://pagescms.org/docs/) for user-friendly content editing.
+    -   Configured to manage markdown files in `src/content/sections`.
+2.  **Content Collections:**
     -   Managed via `src/content/config.ts`.
-    -   Schema includes `title`, `description`, `order`, and `published` status.
-2.  **Rendering Pipeline:**
+    -   Schema includes `title`, `description`, `order` (default 999), and `published` status.
+3.  **Content Constraints & Support:**
+    -   **Layout:** Strictly supports **single-column content** to maintain readability and mobile responsiveness.
+    -   **Elements:** Full support for standard Markdown elements: Headers, paragraphs, links, images, and embedded videos.
+4.  **Rendering Pipeline:**
     -   Astro fetches the collection during the build.
-    -   `renderMarkdown` utility (using `markdown-it`) processes the content.
+    -   `renderMarkdown` utility (using `markdown-it` with `html`, `linkify`, and `typographer` enabled) processes the content.
     -   The resulting HTML and metadata are passed to the `PortfolioApp` React island.
-3.  **Data Stability:**
+5.  **Data Stability:**
     -   Used `useMemo` and `useCallback` in the React layer to prevent "snap-back" bugs caused by array reference changes during scrolling.
 
 ---
@@ -77,13 +87,17 @@ This document outlines the technical architecture, technology stack, and impleme
 ### Implementation Details
 1.  **Mobile Header:**
     -   Implemented a sticky `<header>` in `PortfolioApp.tsx` that is only visible on mobile.
-    -   Ensures the "Jordin Hipps" branding remains persistently visible above the project content.
+    -   Ensures the "Jordin Hipps" branding and "Social Media Marketer" title remain persistently visible.
 2.  **Layout Splits:**
-    -   **Desktop:** Navigation occupies a fixed 1/6 width on the left.
-    -   **Mobile:** Navigation is hidden behind a toggle button, appearing as a full-screen blurred overlay.
-3.  **Interactivity:**
-    -   Added `cursor-pointer` and hover opacity transitions to wheel items.
-    -   Used Tailwind `prose` for automatic, high-quality styling of markdown-rendered content.
+    -   **Desktop:** Sidebar navigation with a vertical wheel.
+    -   **Mobile:** Sticky top header containing a horizontal wheel adaptation (using CSS `rotate[-90deg]` on the wrapper and counter-rotation on items).
+3.  **Interactivity & Animation:**
+    -   **Transitions:** `framer-motion` `AnimatePresence` handles Y-axis slides and fades when switching sections.
+    -   **Directional Awareness:** The app tracks whether the user is moving "up" or "down" the list to determine the direction of the entry/exit animation.
+    -   **Typography:** Used Tailwind `prose` for automatic, high-quality styling of markdown-rendered content.
+4.  **Branding Colors:**
+    -   Defined a custom `brand-purple` (`hsl(270 30% 60%)`) in the Tailwind theme and `global.css`.
+    -   Applied consistently to branding elements (name, bold text, and active wheel items) within the navigation containers to maintain personal brand identity.
 
 ---
 

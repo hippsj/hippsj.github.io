@@ -24,7 +24,9 @@ The primary purpose of this website is to serve as a professional digital portfo
 ## 2. Functional Requirements
 
 ### 2.1. Navigation System (The Wheel)
--   **Vertical Scroll Menu:** A list of portfolio projects (sections) must be displayed on the left side of the screen.
+-   **Layout Variations:**
+    -   **Desktop:** A vertical scroll menu displayed on the left side of the screen.
+    -   **Mobile:** A horizontal scroll menu displayed within the sticky top header.
 -   **Visual Feedback:** The menu items must exhibit a "wheel" behavior:
     -   Items closer to the center of the view should appear larger and fully opaque.
     -   Items further away should appear smaller, rotated, and semi-transparent.
@@ -43,7 +45,9 @@ The primary purpose of this website is to serve as a professional digital portfo
 -   **Default State:** The root URL (`/`) should default to displaying the first available project.
 
 ### 2.3. User Interface Elements
--   **Persistent Header:** The user's name ("Jordin Hipps") must be persistently visible on all screen sizes, including mobile, to maintain site branding.
+-   **Persistent Branding:**
+    -   The user's name ("Jordin Hipps") and professional title ("Social Media Marketer") must be persistently visible on all screen sizes.
+    -   On desktop, this is located at the top of the sidebar; on mobile, it is centered in the top header.
 -   **Footer/Contact:**
     -   Social media links (e.g., LinkedIn) must be available.
     -   A direct email link must be provided for inquiries.
@@ -57,4 +61,4 @@ The primary purpose of this website is to serve as a professional digital portfo
 
 ### 2.5. Responsive Design
 -   **Device Compatibility:** The website must be accessible and intuitive on both large desktop screens and small mobile devices.
--   **Mobile UX:** On mobile devices, the wheel menu should be accessible via a toggleable overlay, while the branding remains visible in a sticky header.
+-   **Mobile UX:** On mobile devices, the layout shifts to a single-column view. The navigation wheel adapts into a horizontal format located directly beneath the branding in the sticky header, ensuring projects are always reachable without opening separate menus.

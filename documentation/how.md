@@ -92,8 +92,8 @@ Implement the main visual structure, interactive wheel navigation, and deep link
 
 2.  **Layout Strategy:**
     -   **Desktop:** Split-screen layout.
-        -   **Left (33%):** Navigation Wheel Container (`fixed` position).
-        -   **Right (67%):** Content Viewer Container (`scrollable`).
+        -   **Left (20%):** Navigation Wheel Container (`fixed` position).
+        -   **Right (80%):** Content Viewer Container (`scrollable`).
     -   **Mobile:**
         -   **State:** A `isMenuOpen` boolean state.
         -   **View:** Full-screen content by default. A "Menu" button toggles the Wheel in a full-screen overlay modal.

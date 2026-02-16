@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { WheelMenu } from "./WheelMenu";
 import { SectionViewer } from "./SectionViewer";
-import { Menu, X } from "lucide-react";
 
 export interface Section {
   id: string;
@@ -17,7 +16,7 @@ export interface PortfolioAppProps {
 
 export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) {
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [direction, setDirection] = useState<"up" | "down">("up");
 
   // Sync state with URL path on mount and popstate (browser back/forward)
   useEffect(() => {
@@ -47,17 +46,27 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
     if (activeSectionId) {
       const currentPath = window.location.pathname.split("/").filter(Boolean).pop() || "";
       if (currentPath !== activeSectionId) {
-        const newPath =
-          activeSectionId === (sections[0]?.id || "") ? "/" : `/${activeSectionId}`;
+        const firstId = sections[0]?.id || "";
+        const newPath = activeSectionId === firstId ? "/" : `/${activeSectionId}`;
         window.history.pushState({ id: activeSectionId }, "", newPath);
       }
     }
   }, [activeSectionId, sections]);
 
-  const handleSelect = useCallback((id: string) => {
-    setActiveSectionId(id);
-    setIsMenuOpen(false); // Close mobile menu on selection
-  }, []);
+  const handleSelect = useCallback(
+    (id: string) => {
+      if (id !== activeSectionId) {
+        const currentIndex = sections.findIndex((s) => s.id === activeSectionId);
+        const nextIndex = sections.findIndex((s) => s.id === id);
+
+        if (currentIndex !== -1 && nextIndex !== -1) {
+          setDirection(nextIndex > currentIndex ? "up" : "down");
+        }
+        setActiveSectionId(id);
+      }
+    },
+    [activeSectionId, sections],
+  );
 
   const menuItems = useMemo(
     () => sections.map((s) => ({ id: s.id, title: s.title })),
@@ -67,27 +76,25 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   const activeSection = sections.find((s) => s.id === activeSectionId);
 
   return (
-    <div className="relative flex h-screen w-screen overflow-hidden bg-background text-foreground">
-      {/* Mobile Header (Always visible on mobile) */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md border-b border-border md:hidden">
-        <h1 className="text-xl font-bold tracking-tight">Jordin Hipps</h1>
-        <button
-          className="absolute right-4 p-2 rounded-full bg-primary text-primary-foreground shadow-sm"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+    <div className="relative flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-background text-foreground">
+      {/* Mobile Top Navigation (Name + Horizontal Wheel) */}
+      <header className="flex flex-col z-50 bg-background/80 backdrop-blur-md border-b border-border md:hidden shrink-0">
+        <div className="py-4 text-center">
+          <h1 className="text-xl font-bold tracking-tight">Jordin Hipps</h1>
+        </div>
+        <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-border/10">
+          <WheelMenu
+            items={menuItems}
+            onSelect={handleSelect}
+            selectedId={activeSectionId}
+            isHorizontal={true}
+          />
+        </div>
       </header>
 
-      {/* Navigation Wheel Container */}
-      <div
-        className={`
-        fixed inset-0 z-40 flex flex-col bg-background/95 backdrop-blur-sm transition-transform duration-300 md:translate-x-0 md:static md:w-1/6 md:border-r md:border-border md:bg-card/50
-        ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
-      `}
-      >
-        <div className="p-8 pb-0 text-center hidden md:block">
+      {/* Desktop Sidebar Navigation (Name + Vertical Wheel) */}
+      <aside className="hidden md:flex md:flex-col md:w-1/6 md:border-r md:border-border md:bg-card/50 h-full shrink-0">
+        <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight">Jordin Hipps</h1>
         </div>
 
@@ -109,14 +116,16 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
             </a>
           </div>
         </div>
-      </div>
+      </aside>
 
       {/* Content Viewer Container */}
-      <div className="h-full w-full md:w-5/6 overflow-y-auto bg-background transition-opacity duration-300 pt-16 md:pt-0">
+      <main className="flex-1 h-full overflow-y-auto bg-background">
         {activeSection ? (
           <div
             key={activeSection.id}
-            className="container mx-auto max-w-3xl px-6 py-12 md:py-24 animate-fade-in"
+            className={`container mx-auto max-w-3xl px-6 py-12 md:py-24 ${
+              direction === "up" ? "animate-slide-up" : "animate-slide-down"
+            }`}
           >
             <SectionViewer
               title={activeSection.title}
@@ -129,7 +138,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
             <p className="text-muted-foreground">Select a project to begin.</p>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

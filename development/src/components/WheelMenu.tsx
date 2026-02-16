@@ -12,16 +12,18 @@ type WheelPickerOption<T extends WheelPickerValue = string> =
 
 type WheelPickerClassNames = WheelPickerPrimitive.WheelPickerClassNames;
 
-function WheelPickerWrapper({
-  className,
-  ...props
-}: React.ComponentProps<typeof WheelPickerPrimitive.WheelPickerWrapper>) {
+interface WrapperProps extends React.ComponentProps<
+  typeof WheelPickerPrimitive.WheelPickerWrapper
+> {
+  isHorizontal?: boolean;
+}
+
+function WheelPickerWrapper({ className, isHorizontal, ...props }: WrapperProps) {
   return (
     <WheelPickerPrimitive.WheelPickerWrapper
       className={cn(
-        "w-56 rounded-lg border border-zinc-200 px-1 shadow-xs dark:border-zinc-700/80",
-        "*:data-rwp:first:*:data-rwp-highlight-wrapper:rounded-s-md",
-        "*:data-rwp:last:*:data-rwp-highlight-wrapper:rounded-e-md",
+        "rounded-lg border border-zinc-200 px-1 shadow-xs dark:border-zinc-700/80 transition-transform duration-300",
+        isHorizontal ? "w-auto h-screen rotate-[-90deg] origin-center scale-125" : "w-56",
         className,
       )}
       {...props}
@@ -29,15 +31,43 @@ function WheelPickerWrapper({
   );
 }
 
+interface PickerProps<
+  T extends WheelPickerValue = string,
+> extends WheelPickerPrimitive.WheelPickerProps<T> {
+  isHorizontal?: boolean;
+  onItemClick?: (value: T) => void;
+}
+
 function WheelPicker<T extends WheelPickerValue = string>({
   classNames,
+  isHorizontal,
+  options,
+  onItemClick,
   ...props
-}: WheelPickerPrimitive.WheelPickerProps<T>) {
+}: PickerProps<T>) {
   return (
     <WheelPickerPrimitive.WheelPicker
+      options={options.map((opt) => ({
+        ...opt,
+        label: (
+          <div
+            className="w-full h-full flex items-center justify-center"
+            onClick={(e) => {
+              // Intercept click for immediate selection
+              if (onItemClick) {
+                onItemClick(opt.value);
+              }
+            }}
+          >
+            <span className={isHorizontal ? "rotate-[90deg] whitespace-nowrap" : ""}>
+              {opt.label}
+            </span>
+          </div>
+        ),
+      }))}
       classNames={{
         optionItem: cn(
-          "text-zinc-400 data-disabled:opacity-40 dark:text-zinc-500",
+          "text-zinc-400 data-disabled:opacity-40 dark:text-zinc-500 hover:text-foreground hover:opacity-100",
           classNames?.optionItem,
         ),
         highlightWrapper: cn(
@@ -57,9 +87,10 @@ export interface WheelMenuProps {
   items: { id: string; title: string }[];
   onSelect: (id: string) => void;
   selectedId: string;
+  isHorizontal?: boolean;
 }
 
-export function WheelMenu({ items, onSelect, selectedId }: WheelMenuProps) {
+export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMenuProps) {
   const options: WheelPickerOption[] = useMemo(
     () =>
       items.map((item) => ({
@@ -79,12 +110,21 @@ export function WheelMenu({ items, onSelect, selectedId }: WheelMenuProps) {
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <WheelPickerWrapper className="w-full border-none bg-transparent shadow-none dark:bg-transparent">
+    <div
+      className={cn(
+        "flex h-full w-full items-center justify-center overflow-hidden",
+        isHorizontal && "pt-4",
+      )}
+    >
+      <WheelPickerWrapper
+        className="w-full border-none bg-transparent shadow-none dark:bg-transparent"
+        isHorizontal={isHorizontal}
+      >
         <WheelPicker
           options={options}
           value={activeValue}
           onValueChange={onSelect}
+          onItemClick={onSelect}
           scrollSensitivity={7}
           optionItemHeight={60}
           visibleCount={20}

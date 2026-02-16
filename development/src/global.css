@@ -31,6 +31,8 @@
     --color-input: hsl(var(--input));
     --color-ring: hsl(var(--ring));
 
+    --color-brand-purple: hsl(270 30% 40%);
+
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
@@ -119,4 +121,16 @@
 
 .animate-slide-down {
     animation: slide-down 0.6s ease;
+}
+
+.menu-container h1,
+.menu-container h2,
+.menu-container h3,
+.menu-container h4,
+.menu-container h5,
+.menu-container h6,
+.menu-container strong,
+.menu-container b,
+.menu-container .font-bold {
+    color: var(--color-brand-purple);
 }

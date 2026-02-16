@@ -78,9 +78,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   return (
     <div className="relative flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-background text-foreground">
       {/* Mobile Top Navigation (Name + Horizontal Wheel) */}
-      <header className="flex flex-col z-50 bg-background/80 backdrop-blur-md border-b border-border md:hidden shrink-0">
+      <header className="flex flex-col z-50 bg-background/80 backdrop-blur-md border-b border-border md:hidden shrink-0 menu-container">
         <div className="py-4 text-center">
           <h1 className="text-xl font-bold tracking-tight">Jordin Hipps</h1>
+          <h2 className="text-sm tracking-tight opacity-60">Social Media Marketer</h2>
         </div>
         <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-border/10">
           <WheelMenu
@@ -93,9 +94,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation (Name + Vertical Wheel) */}
-      <aside className="hidden md:flex md:flex-col md:w-1/6 md:border-r md:border-border md:bg-card/50 h-full shrink-0">
+      <aside className="hidden md:flex md:flex-col md:w-1/6 md:border-r md:border-border md:bg-card/50 h-full shrink-0 menu-container">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight">Jordin Hipps</h1>
+          <h2 className="text-sm tracking-tight opacity-60">Social Media Marketer</h2>
         </div>
 
         <div className="flex-1 overflow-hidden relative flex items-center justify-center">

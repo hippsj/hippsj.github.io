@@ -11,5 +11,13 @@ export default defineConfig({
     optimizeDeps: {
       include: ["lucide-react", "@ncdai/react-wheel-picker", "clsx", "tailwind-merge"],
     },
+    watch: {
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/dist/**',
+        '**/.astro/**',
+        '/nix/store/**'
+      ],
   },
 });

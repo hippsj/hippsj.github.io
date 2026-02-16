@@ -133,7 +133,7 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
               "bg-white text-lg text-muted-foreground transition-all hover:text-foreground duration-300 opacity-60",
             highlightWrapper:
               "bg-white border-none data-rwp-focused:ring-0 dark:data-rwp-focused:ring-0",
-            highlightItem: "font-bold text-foreground opacity-100",
+            highlightItem: "font-bold text-brand-purple opacity-100",
           }}
         />
       </WheelPickerWrapper>

@@ -68,14 +68,17 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
   return (
     <div className="relative flex h-screen w-screen overflow-hidden bg-background text-foreground">
-      {/* Mobile Menu Toggle */}
-      <button
-        className="fixed top-4 right-4 z-50 md:hidden p-2 rounded-full bg-primary text-primary-foreground shadow-lg"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        aria-label="Toggle Menu"
-      >
-        {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-      </button>
+      {/* Mobile Header (Always visible on mobile) */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md border-b border-border md:hidden">
+        <h1 className="text-xl font-bold tracking-tight">Jordin Hipps</h1>
+        <button
+          className="absolute right-4 p-2 rounded-full bg-primary text-primary-foreground shadow-sm"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </header>
 
       {/* Navigation Wheel Container */}
       <div
@@ -84,7 +87,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
       `}
       >
-        <div className="p-8 pb-0 text-center">
+        <div className="p-8 pb-0 text-center hidden md:block">
           <h1 className="text-2xl font-bold tracking-tight">Jordin Hipps</h1>
         </div>
 
@@ -109,7 +112,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </div>
 
       {/* Content Viewer Container */}
-      <div className="h-full w-full md:w-5/6 overflow-y-auto bg-background transition-opacity duration-300">
+      <div className="h-full w-full md:w-5/6 overflow-y-auto bg-background transition-opacity duration-300 pt-16 md:pt-0">
         {activeSection ? (
           <div
             key={activeSection.id}

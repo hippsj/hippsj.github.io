@@ -17,6 +17,7 @@ The primary purpose of this website is to serve as a professional digital portfo
 -   **Simplicity:** The design should be minimalist to keep the focus on the content.
 -   **Interactivity:** The site should offer a unique, memorable user experience that differentiates it from standard portfolios.
 -   **Accessibility:** Contact information and social profiles must be easily accessible to facilitate networking.
+-   **Modernity:** Clean, path-based URLs (no hashes) to ensure professional presentation and SEO friendliness.
 
 ---
 
@@ -29,24 +30,23 @@ The primary purpose of this website is to serve as a professional digital portfo
     -   Items further away should appear smaller, rotated, and semi-transparent.
 -   **Interaction:**
     -   Users must be able to scroll through the list.
+    -   **Discrete Movement:** Scrolling should feel controlled, snapping to the next option without excessive velocity-based "flying".
+    -   **Interactive Feedback:** The cursor should change to a pointer when hovering over menu items to indicate interactivity.
+    -   **Clean Aesthetic:** The selected item should not have a distinct background color or border, appearing seamless with the site background.
     -   Users must be able to click on any specific item to select it immediately.
-    -   Upon selection (via scroll stop or click), the chosen item must automatically align to the center of the navigation area.
 
 ### 2.2. Content Display Area
 -   **Dynamic Content Loading:** The right side of the screen acts as a viewer for the selected project.
+-   **Path-Based Routing:** The site must support clean paths (e.g., `/project-id`) for deep linking and navigation, rather than URL hashes.
 -   **Markdown Rendering:** The viewer must receive content in Markdown format and display it as rendered HTML.
--   **Rich Media Support:** The viewer must support formatted text, headers, and images to effectively present case studies.
--   **Content Structure:** The layout must support content structured in 1-2 rows.
--   **Image Optimization:** Images must be sized for an optimal viewing experience, ensuring they are neither too large nor too small. Both horizontal and vertical images must adapt seamlessly to the layout.
 -   **Smooth Transitions:** When a user switches between projects, the content area should transition smoothly (e.g., fade out the old content and fade in the new) to provide a polished feel.
--   **Default State:** Default content should be the first content available from the CDN. If no specific content is available, a friendly placeholder message should be displayed.
+-   **Default State:** The root URL (`/`) should default to displaying the first available project.
 
 ### 2.3. User Interface Elements
--   **Header:** The user's name ("Jordin Hipps") must be persistently visible, serving as the site branding.
+-   **Persistent Header:** The user's name ("Jordin Hipps") must be persistently visible on all screen sizes, including mobile, to maintain site branding.
 -   **Footer/Contact:**
     -   Social media links (e.g., LinkedIn) must be available.
     -   A direct email link must be provided for inquiries.
-    -   Hover effects should be used on interactive elements (links, buttons) to indicate interactivity.
 
 ### 2.4. Content Management
 -   **Project Attributes:** Each portfolio item must support the following metadata:
@@ -57,4 +57,4 @@ The primary purpose of this website is to serve as a professional digital portfo
 
 ### 2.5. Responsive Design
 -   **Device Compatibility:** The website must be accessible and intuitive on both large desktop screens and small mobile devices.
--   **Adaptive Layout:** The interface, including the navigation wheel and content viewer, must adapt to different screen sizes to ensure usability.
+-   **Mobile UX:** On mobile devices, the wheel menu should be accessible via a toggleable overlay, while the branding remains visible in a sticky header.

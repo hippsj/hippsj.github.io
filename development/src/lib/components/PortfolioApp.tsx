@@ -131,10 +131,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
           {activeSection ? (
             <motion.div
               key={activeSection.id}
-              initial={{ opacity: 0, y: direction === "up" ? 60 : -60 }}
+              initial={{ opacity: 0, y: direction === "up" ? 160 : -160 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: direction === "up" ? -60 : 60 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: direction === "up" ? -40 : 40 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="container mx-auto max-w-3xl px-6 py-12 md:py-24"
             >
               <SectionViewer

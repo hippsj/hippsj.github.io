@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { WheelMenu } from "./WheelMenu";
 import { SectionViewer } from "./SectionViewer";
 
@@ -125,25 +126,35 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </aside>
 
       {/* Content Viewer Container */}
-      <main className="flex-1 h-full overflow-y-auto bg-background">
-        {activeSection ? (
-          <div
-            key={activeSection.id}
-            className={`container mx-auto max-w-3xl px-6 py-12 md:py-24 ${
-              direction === "up" ? "animate-slide-up" : "animate-slide-down"
-            }`}
-          >
-            <SectionViewer
-              title={activeSection.title}
-              description={activeSection.description}
-              html={activeSection.html || ""}
-            />
-          </div>
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <p className="text-muted-foreground">Select a project to begin.</p>
-          </div>
-        )}
+      <main className="flex-1 h-full overflow-y-auto bg-background relative">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {activeSection ? (
+            <motion.div
+              key={activeSection.id}
+              initial={{ opacity: 0, y: direction === "up" ? 60 : -60 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: direction === "up" ? -60 : 60 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="container mx-auto max-w-3xl px-6 py-12 md:py-24"
+            >
+              <SectionViewer
+                title={activeSection.title}
+                description={activeSection.description}
+                html={activeSection.html || ""}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex h-full items-center justify-center h-full"
+            >
+              <p className="text-muted-foreground">Select a project to begin.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

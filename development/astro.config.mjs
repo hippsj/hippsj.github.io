@@ -17,6 +17,7 @@ export default defineConfig({
         "**/.git/**",
         "**/dist/**",
         "**/.astro/**",
+        "**/.devenv/**",
         "/nix/store/**",
       ],
     },

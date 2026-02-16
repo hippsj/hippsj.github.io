@@ -75,7 +75,6 @@ export function PortfolioApp({ sections }: PortfolioAppProps) {
       >
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight">Jordin Hipps</h1>
-          <p className="text-sm text-muted-foreground">Portfolio</p>
         </div>
 
         <div className="flex-1 overflow-hidden relative flex items-center justify-center">

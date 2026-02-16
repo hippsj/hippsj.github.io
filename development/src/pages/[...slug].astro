@@ -1,0 +1,59 @@
+---
+import "@/global.css";
+import BaseHead from "@/components/BaseHead.astro";
+import { PortfolioApp } from "@/components/PortfolioApp";
+import { getCollection } from "astro:content";
+import { renderMarkdown } from "@/lib/markdown";
+
+export async function getStaticPaths() {
+    const allSections = await getCollection("sections", ({ data }) => {
+        return import.meta.env.PROD ? data.published : true;
+    });
+
+    const sortedSections = allSections.sort((a, b) => a.data.order - b.data.order);
+
+    // Create paths for each section
+    const paths = sortedSections.map((section) => ({
+        params: { slug: section.slug },
+        props: { initialSectionId: section.slug },
+    }));
+
+    // Also include the root path (index) which defaults to the first section
+    paths.push({
+        params: { slug: undefined },
+        props: { initialSectionId: sortedSections[0]?.slug || "" },
+    });
+
+    return paths;
+}
+
+const { initialSectionId } = Astro.props;
+
+// Fetch all sections to pass to the client-side app
+const allSections = await getCollection("sections", ({ data }) => {
+    return import.meta.env.PROD ? data.published : true;
+});
+
+const sortedSections = allSections.sort((a, b) => a.data.order - b.data.order);
+
+const sections = sortedSections.map((section) => ({
+    id: section.slug,
+    title: section.data.title,
+    description: section.data.description,
+    html: renderMarkdown(section.body),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead />
+    </head>
+    <body class="bg-background text-foreground antialiased overflow-hidden">
+        <PortfolioApp
+            client:load
+            sections={sections}
+            initialSectionId={initialSectionId}
+        />
+    </body>
+</html>

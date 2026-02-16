@@ -12,40 +12,51 @@ export interface Section {
 
 export interface PortfolioAppProps {
   sections: Section[];
+  initialSectionId?: string;
 }
 
-export function PortfolioApp({ sections }: PortfolioAppProps) {
-  const [activeSectionId, setActiveSectionId] = useState<string>("");
+export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) {
+  const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Initialize active section from hash or default to first
+  // Sync state with URL path on mount and popstate (browser back/forward)
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && sections.some((s) => s.id === hash)) {
-        setActiveSectionId(hash);
-      } else if (sections.length > 0 && !activeSectionId) {
-        setActiveSectionId(sections[0].id);
+    const handleLocationChange = () => {
+      // Get the last part of the path (e.g., /sample-1 -> sample-1)
+      const path = window.location.pathname.split("/").filter(Boolean).pop();
+
+      if (path && sections.some((s) => s.id === path)) {
+        setActiveSectionId(path);
+      } else if (sections.length > 0) {
+        // Fallback to initial or first section if path is empty/invalid
+        setActiveSectionId(initialSectionId || sections[0].id);
       }
     };
 
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [sections, activeSectionId]);
+    // Only run on mount if we don't have an initialSectionId from Astro
+    if (!initialSectionId) {
+      handleLocationChange();
+    }
 
-  // Update hash when active section changes
+    window.addEventListener("popstate", handleLocationChange);
+    return () => window.removeEventListener("popstate", handleLocationChange);
+  }, [sections, initialSectionId]);
+
+  // Update URL path when active section changes (History API)
   useEffect(() => {
     if (activeSectionId) {
-      const currentHash = window.location.hash.replace("#", "");
-      if (currentHash !== activeSectionId) {
-        window.location.hash = activeSectionId;
+      const currentPath = window.location.pathname.split("/").filter(Boolean).pop() || "";
+      if (currentPath !== activeSectionId) {
+        const newPath =
+          activeSectionId === (sections[0]?.id || "") ? "/" : `/${activeSectionId}`;
+        window.history.pushState({ id: activeSectionId }, "", newPath);
       }
     }
-  }, [activeSectionId]);
+  }, [activeSectionId, sections]);
 
   const handleSelect = useCallback((id: string) => {
     setActiveSectionId(id);
+    setIsMenuOpen(false); // Close mobile menu on selection
   }, []);
 
   const menuItems = useMemo(

@@ -24,12 +24,20 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
     const handleLocationChange = () => {
       // Get the last part of the path (e.g., /sample-1 -> sample-1)
       const path = window.location.pathname.split("/").filter(Boolean).pop();
+      const nextId =
+        path && sections.some((s) => s.id === path)
+          ? path
+          : initialSectionId || sections[0]?.id;
 
-      if (path && sections.some((s) => s.id === path)) {
-        setActiveSectionId(path);
-      } else if (sections.length > 0) {
-        // Fallback to initial or first section if path is empty/invalid
-        setActiveSectionId(initialSectionId || sections[0].id);
+      if (nextId && nextId !== activeSectionId) {
+        const currentIndex = sections.findIndex((s) => s.id === activeSectionId);
+        const nextIndex = sections.findIndex((s) => s.id === nextId);
+
+        // Recalculate direction for browser navigation
+        if (currentIndex !== -1 && nextIndex !== -1) {
+          setDirection(nextIndex > currentIndex ? "up" : "down");
+        }
+        setActiveSectionId(nextId);
       }
     };
 
@@ -40,7 +48,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
     window.addEventListener("popstate", handleLocationChange);
     return () => window.removeEventListener("popstate", handleLocationChange);
-  }, [sections, initialSectionId]);
+  }, [sections, initialSectionId, activeSectionId]);
 
   // Update URL path when active section changes (History API)
   useEffect(() => {
@@ -75,6 +83,29 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   );
 
   const activeSection = sections.find((s) => s.id === activeSectionId);
+
+  // Animation Variants for separate entry/exit timing
+  const variants = {
+    enter: (direction: "up" | "down") => ({
+      opacity: 0,
+      y: direction === "up" ? 200 : -200,
+    }),
+    center: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+    exit: (direction: "up" | "down") => ({
+      opacity: 0,
+      y: direction === "up" ? -100 : 100,
+      transition: {
+        duration: 0.15,
+      },
+    }),
+  };
 
   return (
     <div className="relative flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-background text-foreground">
@@ -126,15 +157,16 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </aside>
 
       {/* Content Viewer Container */}
-      <main className="flex-1 h-full overflow-y-auto bg-background relative">
-        <AnimatePresence mode="popLayout" initial={false}>
+      <main className="flex-1 h-full overflow-y-auto relative">
+        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
           {activeSection ? (
             <motion.div
               key={activeSection.id}
-              initial={{ opacity: 0, y: direction === "up" ? 160 : -160 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: direction === "up" ? -40 : 40 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               className="container mx-auto max-w-3xl px-6 py-12 md:py-24"
             >
               <SectionViewer
@@ -149,7 +181,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex h-full items-center justify-center h-full"
+              className="flex h-full items-center justify-center"
             >
               <p className="text-muted-foreground">Select a project to begin.</p>
             </motion.div>

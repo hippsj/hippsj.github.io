@@ -31,57 +31,58 @@
     --color-input: hsl(var(--input));
     --color-ring: hsl(var(--ring));
 
-    --color-brand-purple: hsl(270 30% 60%);
+    /* Saturated brand purple */
+    --color-brand-purple: hsl(270 50% 55%);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
 }
 
-/* Zinc Theme */
+/* Saturated Purple-Tinted Theme (Hue: 270, Saturation: 40%) */
 :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --background: 270 40% 99%; /* Purple-tinted white */
+    --foreground: 270 40% 5%; /* Purple-tinted near-black */
+    --card: 270 40% 99%;
+    --card-foreground: 270 40% 5%;
+    --popover: 270 40% 99%;
+    --popover-foreground: 270 40% 5%;
+    --primary: 270 40% 12%; /* Deep saturated purple */
+    --primary-foreground: 270 20% 98%;
+    --secondary: 270 40% 94%; /* Light purple-tinted grey */
+    --secondary-foreground: 270 40% 12%;
+    --muted: 270 40% 94%;
+    --muted-foreground: 270 30% 40%;
+    --accent: 270 40% 94%;
+    --accent-foreground: 270 40% 12%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: 270 40% 90%;
+    --input: 270 40% 90%;
+    --ring: 270 40% 5%;
     --radius: 0.5rem;
 }
 
 .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.6%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.6%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.6%;
-    --accent-foreground: 0 0% 98%;
+    --background: 270 40% 4%; /* Dark saturated purple-black */
+    --foreground: 270 30% 98%; /* Soft purple-white */
+    --card: 270 40% 4%;
+    --card-foreground: 270 30% 98%;
+    --popover: 270 40% 4%;
+    --popover-foreground: 270 30% 98%;
+    --primary: 270 30% 98%;
+    --primary-foreground: 270 40% 4%;
+    --secondary: 270 40% 12%;
+    --secondary-foreground: 270 30% 98%;
+    --muted: 270 40% 12%;
+    --muted-foreground: 270 20% 65%;
+    --accent: 270 40% 12%;
+    --accent-foreground: 270 30% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.6%;
-    --input: 240 3.7% 15.6%;
-    --ring: 240 4.9% 83.9%;
+    --border: 270 40% 12%;
+    --input: 270 40% 12%;
+    --ring: 270 40% 80%;
 }
 
 @layer base {
@@ -93,6 +94,10 @@
     }
 }
 
+/*
+   Menu styling: Applies the brand purple to headers and bold text
+   specifically within the navigation containers (sidebar/mobile header).
+*/
 .menu-container h1,
 .menu-container h3,
 .menu-container h4,
@@ -106,4 +111,57 @@
 
 .menu-container h2 {
     color: var(--color-muted-foreground);
+}
+
+/*
+   Section Viewer (Prose) Neutral Reset:
+   Ensures the actual content stays highly readable with standard
+   neutral/zinc colors, while the site shell maintains its brand purple tint.
+*/
+main {
+    background-color: #ffffff;
+    color: #18181b;
+}
+
+.dark main {
+    background-color: #09090b;
+    color: #fafafa;
+}
+
+.prose {
+    --tw-prose-body: #27272a;
+    --tw-prose-headings: #18181b;
+    --tw-prose-lead: #3f3f46;
+    --tw-prose-links: #18181b;
+    --tw-prose-bold: #18181b;
+    --tw-prose-counters: #71717a;
+    --tw-prose-bullets: #d4d4d8;
+    --tw-prose-hr: #e4e4e7;
+    --tw-prose-quotes: #18181b;
+    --tw-prose-quote-borders: #e4e4e7;
+    --tw-prose-captions: #71717a;
+    --tw-prose-code: #18181b;
+    --tw-prose-pre-code: #e4e4e7;
+    --tw-prose-pre-bg: #27272a;
+    --tw-prose-th-borders: #d4d4d8;
+    --tw-prose-td-borders: #e4e4e7;
+}
+
+.dark .prose {
+    --tw-prose-body: #d4d4d8;
+    --tw-prose-headings: #fafafa;
+    --tw-prose-lead: #a1a1aa;
+    --tw-prose-links: #fafafa;
+    --tw-prose-bold: #fafafa;
+    --tw-prose-counters: #a1a1aa;
+    --tw-prose-bullets: #52525b;
+    --tw-prose-hr: #3f3f46;
+    --tw-prose-quotes: #fafafa;
+    --tw-prose-quote-borders: #3f3f46;
+    --tw-prose-captions: #a1a1aa;
+    --tw-prose-code: #fafafa;
+    --tw-prose-pre-code: #d4d4d8;
+    --tw-prose-pre-bg: #18181b;
+    --tw-prose-th-borders: #52525b;
+    --tw-prose-td-borders: #3f3f46;
 }

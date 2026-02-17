@@ -3,6 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
+    /* Base Layout Colors */
     --color-background: hsl(var(--background));
     --color-foreground: hsl(var(--foreground));
 
@@ -31,58 +32,50 @@
     --color-input: hsl(var(--input));
     --color-ring: hsl(var(--ring));
 
-    /* Saturated brand purple */
-    --color-brand-purple: hsl(270 50% 55%);
+    /* Semantic Theme Variables */
+    --color-nav-bg: hsl(var(--nav-bg));
+    --color-nav-border: hsl(var(--nav-border));
+    --color-nav-foreground: hsl(var(--nav-foreground));
+
+    --color-content-bg: hsl(var(--content-bg));
+    --color-content-foreground: hsl(var(--content-foreground));
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
 }
 
-/* Saturated Purple-Tinted Theme (Hue: 270, Saturation: 40%) */
 :root {
-    --background: 270 40% 99%; /* Purple-tinted white */
-    --foreground: 270 40% 5%; /* Purple-tinted near-black */
+    /* Global Saturated Purple Theme (Hue: 270, Saturation: 40%) */
+    --background: 270 40% 99%;
+    --foreground: 270 40% 5%;
     --card: 270 40% 99%;
     --card-foreground: 270 40% 5%;
     --popover: 270 40% 99%;
     --popover-foreground: 270 40% 5%;
-    --primary: 270 40% 12%; /* Deep saturated purple */
+    --primary: 270 40% 12%;
     --primary-foreground: 270 20% 98%;
-    --secondary: 270 40% 94%; /* Light purple-tinted grey */
+    --secondary: 270 40% 95%;
     --secondary-foreground: 270 40% 12%;
-    --muted: 270 40% 94%;
+    --muted: 270 40% 95%;
     --muted-foreground: 270 30% 40%;
-    --accent: 270 40% 94%;
+    --accent: 270 40% 95%;
     --accent-foreground: 270 40% 12%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 270 40% 90%;
     --input: 270 40% 90%;
-    --ring: 270 40% 5%;
+    --ring: 270 30% 65%;
     --radius: 0.5rem;
-}
 
-.dark {
-    --background: 270 40% 4%; /* Dark saturated purple-black */
-    --foreground: 270 30% 98%; /* Soft purple-white */
-    --card: 270 40% 4%;
-    --card-foreground: 270 30% 98%;
-    --popover: 270 40% 4%;
-    --popover-foreground: 270 30% 98%;
-    --primary: 270 30% 98%;
-    --primary-foreground: 270 40% 4%;
-    --secondary: 270 40% 12%;
-    --secondary-foreground: 270 30% 98%;
-    --muted: 270 40% 12%;
-    --muted-foreground: 270 20% 65%;
-    --accent: 270 40% 12%;
-    --accent-foreground: 270 30% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 270 40% 12%;
-    --input: 270 40% 12%;
-    --ring: 270 40% 80%;
+    /* Navigation Sidebar/Header Theme (Hue 270, Sat 30, Light 65) */
+    --nav-bg: 270 30% 65%;
+    --nav-border: 270 30% 55%;
+    --nav-foreground: 0 0% 100%;
+
+    /* Content Area Theme (Neutral Defaults) */
+    --content-bg: 0 0% 100%;
+    --content-foreground: 240 10% 4%;
 }
 
 @layer base {
@@ -90,78 +83,6 @@
         @apply border-border outline-ring/50;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground antialiased;
     }
-}
-
-/*
-   Menu styling: Applies the brand purple to headers and bold text
-   specifically within the navigation containers (sidebar/mobile header).
-*/
-.menu-container h1,
-.menu-container h3,
-.menu-container h4,
-.menu-container h5,
-.menu-container h6,
-.menu-container strong,
-.menu-container b,
-.menu-container .font-bold {
-    color: var(--color-brand-purple);
-}
-
-.menu-container h2 {
-    color: var(--color-muted-foreground);
-}
-
-/*
-   Section Viewer (Prose) Neutral Reset:
-   Ensures the actual content stays highly readable with standard
-   neutral/zinc colors, while the site shell maintains its brand purple tint.
-*/
-main {
-    background-color: #ffffff;
-    color: #18181b;
-}
-
-.dark main {
-    background-color: #09090b;
-    color: #fafafa;
-}
-
-.prose {
-    --tw-prose-body: #27272a;
-    --tw-prose-headings: #18181b;
-    --tw-prose-lead: #3f3f46;
-    --tw-prose-links: #18181b;
-    --tw-prose-bold: #18181b;
-    --tw-prose-counters: #71717a;
-    --tw-prose-bullets: #d4d4d8;
-    --tw-prose-hr: #e4e4e7;
-    --tw-prose-quotes: #18181b;
-    --tw-prose-quote-borders: #e4e4e7;
-    --tw-prose-captions: #71717a;
-    --tw-prose-code: #18181b;
-    --tw-prose-pre-code: #e4e4e7;
-    --tw-prose-pre-bg: #27272a;
-    --tw-prose-th-borders: #d4d4d8;
-    --tw-prose-td-borders: #e4e4e7;
-}
-
-.dark .prose {
-    --tw-prose-body: #d4d4d8;
-    --tw-prose-headings: #fafafa;
-    --tw-prose-lead: #a1a1aa;
-    --tw-prose-links: #fafafa;
-    --tw-prose-bold: #fafafa;
-    --tw-prose-counters: #a1a1aa;
-    --tw-prose-bullets: #52525b;
-    --tw-prose-hr: #3f3f46;
-    --tw-prose-quotes: #fafafa;
-    --tw-prose-quote-borders: #3f3f46;
-    --tw-prose-captions: #a1a1aa;
-    --tw-prose-code: #fafafa;
-    --tw-prose-pre-code: #d4d4d8;
-    --tw-prose-pre-bg: #18181b;
-    --tw-prose-th-borders: #52525b;
-    --tw-prose-td-borders: #3f3f46;
 }

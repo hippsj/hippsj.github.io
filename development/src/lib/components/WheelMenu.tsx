@@ -22,7 +22,7 @@ function WheelPickerWrapper({ className, isHorizontal, ...props }: WrapperProps)
   return (
     <WheelPickerPrimitive.WheelPickerWrapper
       className={cn(
-        "rounded-lg border border-zinc-200 px-1 shadow-xs dark:border-zinc-700/80 transition-transform duration-300",
+        "rounded-lg border-none px-1 transition-transform duration-300",
         isHorizontal ? "w-auto h-screen rotate-[-90deg] origin-center scale-125" : "w-56",
         className,
       )}
@@ -67,13 +67,10 @@ function WheelPicker<T extends WheelPickerValue = string>({
       }))}
       classNames={{
         optionItem: cn(
-          "text-zinc-400 data-disabled:opacity-40 dark:text-zinc-500 hover:text-foreground hover:opacity-100",
+          "data-disabled:opacity-40 hover:opacity-100",
           classNames?.optionItem,
         ),
-        highlightWrapper: cn(
-          "text-zinc-950 dark:text-zinc-50",
-          classNames?.highlightWrapper,
-        ),
+        highlightWrapper: cn(classNames?.highlightWrapper),
         highlightItem: cn("data-disabled:opacity-40", classNames?.highlightItem),
       }}
       {...props}
@@ -117,7 +114,7 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
       )}
     >
       <WheelPickerWrapper
-        className="w-full border-none bg-card shadow-none dark:bg-card"
+        className="w-full border-none shadow-none"
         isHorizontal={isHorizontal}
       >
         <WheelPicker
@@ -130,10 +127,10 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
           visibleCount={20}
           classNames={{
             optionItem:
-              "bg-card text-lg text-muted-foreground transition-all hover:text-foreground duration-300 opacity-60",
-            highlightWrapper:
-              "bg-card border-none data-rwp-focused:ring-0 dark:data-rwp-focused:ring-0",
-            highlightItem: "font-bold text-brand-purple opacity-100",
+              "text-lg text-white/80 transition-all hover:text-white duration-300",
+            highlightWrapper: "bg-nav-bg border-none data-rwp-focused:ring-0",
+            highlightItem:
+              "font-bold text-white underline underline-offset-8 decoration-2 opacity-100",
           }}
         />
       </WheelPickerWrapper>

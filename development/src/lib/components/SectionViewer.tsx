@@ -8,12 +8,17 @@ export interface SectionViewerProps {
 
 export function SectionViewer({ title, description, html }: SectionViewerProps) {
   return (
-    <div className="prose prose-lg prose-zinc dark:prose-invert max-w-none prose-img:rounded-xl prose-img:shadow-lg prose-headings:font-bold prose-a:text-primary hover:prose-a:text-primary/80 transition-colors">
-      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-8">{title}</h1>
+    <div className="prose prose-lg max-w-none prose-headings:text-content-foreground prose-p:text-content-foreground/80 prose-a:text-content-foreground prose-strong:text-content-foreground prose-img:rounded-xl prose-img:shadow-lg transition-colors">
+      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-8 text-content-foreground">
+        {title}
+      </h1>
       {description && (
-        <p className="lead text-xl text-muted-foreground mb-8">{description}</p>
+        <p className="text-xl text-content-foreground/60 mb-8 italic">{description}</p>
       )}
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <div
+        className="text-content-foreground"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }

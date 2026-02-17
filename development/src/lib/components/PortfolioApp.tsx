@@ -125,7 +125,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden md:flex md:flex-col md:w-1/6 md:border-r border-nav-border bg-nav-bg h-full shrink-0">
+      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-1/6 md:border-r border-nav-border bg-nav-bg h-full shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-white">Jordin Hipps</h1>
           <h2 className="text-sm tracking-tight text-white/80">Social Media Marketer</h2>

@@ -92,7 +92,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6, // Slower entry
+        duration: 1.5, // Slower entry
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -100,7 +100,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       opacity: 0,
       y: direction === "up" ? -40 : 40,
       transition: {
-        duration: 0.2, // Quicker exit
+        duration: 0.01, // Near zero duration
         ease: "easeIn",
       },
     }),
@@ -125,7 +125,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-1/6 border border-nav-border bg-nav-bg shrink-0">
+      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-white">Jordin Hipps</h1>
           <h2 className="text-sm tracking-tight text-white/80">Social Media Marketer</h2>
@@ -162,7 +162,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
               initial="enter"
               animate="center"
               exit="exit"
-              className="container mx-auto max-w-3xl px-6 py-12 md:py-24"
+              className="container mx-auto max-w-3xl px-6 py-12 md:py-24 min-h-full flex flex-col justify-center"
             >
               <SectionViewer
                 title={activeSection.title}

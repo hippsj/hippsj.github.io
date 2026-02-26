@@ -48,7 +48,7 @@
 
 :root {
   /* Global Saturated Purple Theme (Hue: 270, Saturation: 40%) */
-  --background: 270 40% 99%;
+  --background: 0 0% 100%;
   --foreground: 270 40% 5%;
   --card: 270 40% 99%;
   --card-foreground: 270 40% 5%;
@@ -75,7 +75,7 @@
   --nav-foreground: 0 0% 100%;
 
   /* Content Area Theme (Neutral Defaults) */
-  --content-bg: 0 0% 100%;
+  --content-bg: var(--background);
   --content-foreground: 240 10% 4%;
 }
 

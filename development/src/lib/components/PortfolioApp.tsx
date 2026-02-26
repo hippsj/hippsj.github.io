@@ -111,8 +111,12 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       {/* Mobile Top Navigation */}
       <header className="flex flex-col z-50 bg-nav-bg border-b border-nav-border md:hidden shrink-0">
         <div className="py-4 text-center">
-          <h1 className="text-xl font-bold tracking-tight text-white">Jordin Hipps</h1>
-          <h2 className="text-sm tracking-tight text-white/80">Social Media Marketer</h2>
+          <h1 className="text-xl font-bold tracking-tight text-nav-foreground">
+            Jordin Hipps
+          </h1>
+          <h2 className="text-sm tracking-tight text-nav-foreground/80">
+            Social Media Marketer
+          </h2>
         </div>
         <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-nav-border/30">
           <WheelMenu
@@ -127,8 +131,12 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       {/* Desktop Sidebar Navigation */}
       <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-white">Jordin Hipps</h1>
-          <h2 className="text-sm tracking-tight text-white/80">Social Media Marketer</h2>
+          <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
+            Jordin Hipps
+          </h1>
+          <h2 className="text-sm tracking-tight text-nav-foreground/80">
+            Social Media Marketer
+          </h2>
         </div>
 
         <div className="flex-1 overflow-hidden relative flex items-center justify-center">
@@ -141,10 +149,16 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
         <div className="p-8 pt-0 mx-auto text-center">
           <div className="flex gap-4 text-sm">
-            <a href="#" className="text-white/80 hover:text-white transition-colors">
+            <a
+              href="#"
+              className="text-nav-foreground/80 hover:text-nav-foreground transition-colors"
+            >
               LinkedIn
             </a>
-            <a href="#" className="text-white/80 hover:text-white transition-colors">
+            <a
+              href="#"
+              className="text-nav-foreground/80 hover:text-nav-foreground transition-colors"
+            >
               Email
             </a>
           </div>

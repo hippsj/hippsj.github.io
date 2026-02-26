@@ -107,7 +107,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   };
 
   return (
-    <div className="relative flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-background text-foreground">
+    <div className="relative flex flex-col md:flex-row h-screen max-h-screen w-screen overflow-hidden bg-background text-foreground">
       {/* Mobile Top Navigation */}
       <header className="flex flex-col z-50 bg-nav-bg border-b border-nav-border md:hidden shrink-0">
         <div className="py-4 text-center">
@@ -125,7 +125,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-1/6 md:border-r border-nav-border bg-nav-bg h-full shrink-0">
+      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-1/6 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-white">Jordin Hipps</h1>
           <h2 className="text-sm tracking-tight text-white/80">Social Media Marketer</h2>
@@ -152,7 +152,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </aside>
 
       {/* Content Viewer Container (Using neutral defaults from CSS variables) */}
-      <main className="flex-1 h-full overflow-y-auto bg-content-bg text-content-foreground relative">
+      <main className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative">
         <AnimatePresence mode="popLayout" initial={false} custom={direction}>
           {activeSection ? (
             <motion.div

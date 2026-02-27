@@ -1,6 +1,7 @@
 ---
-title: Baseline Three Words
-description: A 3-page sample focusing on links, images, and media handling.
+title: "Baseline Three Words"
+id: "baseline"
+description: "A 3-page sample focusing on links, images, and media handling."
 order: 4
 published: true
 ---

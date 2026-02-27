@@ -14,14 +14,14 @@ export async function getStaticPaths() {
 
   // Create paths for each section
   const paths = sortedSections.map((section) => ({
-    params: { slug: section.slug },
-    props: { initialSectionId: section.slug },
+    params: { slug: section.data.id },
+    props: { initialSectionId: section.data.id },
   }));
 
   // Also include the root path (index) which defaults to the first section
   paths.push({
     params: { slug: undefined as any },
-    props: { initialSectionId: sortedSections[0]?.slug || "" },
+    props: { initialSectionId: sortedSections[0]?.data.id || "" },
   });
 
   return paths;
@@ -37,7 +37,7 @@ const allSections = await getCollection("sections", ({ data }) => {
 const sortedSections = allSections.sort((a, b) => a.data.order - b.data.order);
 
 const sections = sortedSections.map((section) => ({
-  id: section.slug,
+  id: section.data.id,
   title: section.data.title,
   description: section.data.description,
   html: renderMarkdown(section.body),

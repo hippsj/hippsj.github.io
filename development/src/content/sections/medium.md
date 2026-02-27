@@ -1,5 +1,6 @@
 ---
 title: Two Words
+id: medium
 description: A two-word project name to test the wheel menu layout.
 order: 1
 published: true

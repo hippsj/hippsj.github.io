@@ -1,5 +1,6 @@
 ---
 title: Short
+id: short
 description: A short title test case focusing on typography and lists.
 order: 0
 published: true

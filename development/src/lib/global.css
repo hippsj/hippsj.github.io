@@ -85,7 +85,8 @@
   --nav-border: transparent;
   --nav-foreground: var(--foreground);
   --shadow-nav-concave:
-    inset -1px 0 2px rgba(0, 0, 0, 0.1), 1px 0 2px rgba(0, 0, 0, 0.05);
+    inset -3px 0 6px rgba(255, 255, 255, 0.15), 3px 0 6px rgba(255, 255, 255, 0.15),
+    inset -15px 0 20px -10px rgba(0, 0, 0, 0.02);
 
   /* Content Area Theme */
   --content-bg: var(--background);

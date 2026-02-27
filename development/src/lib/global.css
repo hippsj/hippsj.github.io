@@ -50,7 +50,7 @@
 
 :root {
   /* Vibrant Lilac & Deep Purple Theme */
-  --background: 270 50% 96%; /* Clearly Lavender */
+  --background: 281 44% 86%; /* Soft Lilac Mid-tone */
   --foreground: 275 80% 10%; /* Deep Plum */
 
   --card: 270 40% 98%;
@@ -78,25 +78,17 @@
   --input: 270 40% 85%;
   --ring: 270 75% 55%;
 
-  --radius: 1rem;
+  --radius: 51px;
 
-  /* Neumorphism Settings */
-  --neu-dist: 6px;
-  --neu-blur: 16px;
-  --neu-shadow-dark: 270 50% 86%;
-  --neu-shadow-light: 270 50% 96%;
-
-  /* Navigation Sidebar/Header Theme (Neumorphic Pressed) */
-  --nav-bg: 270 50% 91%;
+  /* Navigation Sidebar/Header Theme (Neumorphic Concave) */
+  --nav-bg: var(--background);
   --nav-border: transparent;
   --nav-foreground: var(--foreground);
-  --shadow-nav-pressed:
-    inset var(--neu-dist) var(--neu-dist) var(--neu-blur) hsl(var(--neu-shadow-dark)),
-    inset calc(var(--neu-dist) * -1) calc(var(--neu-dist) * -1) var(--neu-blur)
-      hsl(var(--neu-shadow-light));
+  --nav-gradient: linear-gradient(145deg, #ceb9d9, #f5dbff);
+  --shadow-nav-concave: 24px 24px 47px #c5b0cf, -24px -24px 47px #ffeaff;
 
   /* Content Area Theme */
-  --content-bg: 270 50% 96%;
+  --content-bg: var(--background);
   --content-foreground: 275 80% 10%;
 }
 
@@ -109,7 +101,8 @@
   }
   aside,
   header {
-    box-shadow: var(--shadow-nav-pressed);
+    background: var(--nav-gradient);
+    box-shadow: var(--shadow-nav-concave);
     @apply border-none p-6;
   }
 }

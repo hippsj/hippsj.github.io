@@ -23,7 +23,7 @@ function WheelPickerWrapper({ className, isHorizontal, ...props }: WrapperProps)
     <WheelPickerPrimitive.WheelPickerWrapper
       className={cn(
         "rounded-lg border-none px-1 transition-transform duration-300",
-        isHorizontal ? "w-auto h-screen rotate-[-90deg] origin-center scale-125" : "w-56",
+        isHorizontal ? "w-auto h-screen -rotate-90 origin-center scale-125" : "w-56",
         className,
       )}
       {...props}
@@ -51,7 +51,7 @@ function WheelPicker<T extends WheelPickerValue = string>({
         ...opt,
         label: (
           <div
-            className="w-full h-full flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center px-2"
             onClick={(e) => {
               // Intercept click for immediate selection
               if (onItemClick) {
@@ -59,7 +59,12 @@ function WheelPicker<T extends WheelPickerValue = string>({
               }
             }}
           >
-            <span className={isHorizontal ? "rotate-[90deg] whitespace-nowrap" : ""}>
+            <span
+              className={cn(
+                "text-center leading-snug",
+                isHorizontal ? "rotate-90 whitespace-nowrap" : "line-clamp-3 w-full",
+              )}
+            >
               {opt.label}
             </span>
           </div>
@@ -123,7 +128,9 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
           onValueChange={onSelect}
           onItemClick={onSelect}
           scrollSensitivity={7}
-          optionItemHeight={60}
+          // Use 40px for horizontal (width of slot), 80px for vertical (height of slot)
+          optionItemHeight={isHorizontal ? 40 : 80}
+          isHorizontal={isHorizontal}
           visibleCount={20}
           classNames={{
             optionItem:

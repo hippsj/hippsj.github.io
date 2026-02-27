@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { WheelMenu } from "./WheelMenu";
 import { SectionViewer } from "./SectionViewer";
+import { Magnetic } from "./ui/Magnetic";
 
 export interface Section {
   id: string;
@@ -19,6 +20,68 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
   const [direction, setDirection] = useState<"up" | "down">("up");
   const mainContentRef = useRef<HTMLElement>(null);
+
+  // Magnetic effect for content area links and buttons
+  useEffect(() => {
+    const main = mainContentRef.current;
+    if (!main) return;
+
+    let rafId: number;
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const elements = main.querySelectorAll("a, button");
+        elements.forEach((el) => {
+          const target = el as HTMLElement;
+          const rect = target.getBoundingClientRect();
+
+          // Ensure element is visible and has layout
+          if (rect.width === 0 || rect.height === 0) return;
+
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          const distanceX = e.clientX - centerX;
+          const distanceY = e.clientY - centerY;
+          const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+          const range = 80; // Smaller activation range
+          const strength = 0.2; // Weaker magnetism effect
+
+          if (distance < range) {
+            // Exponential pull: stronger when closer to the center
+            const power = 1 - distance / range;
+            const moveX = distanceX * strength * power;
+            const moveY = distanceY * strength * power;
+
+            target.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            target.style.transition = "transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)";
+            target.style.display = "inline-block"; // Ensure transform works
+          } else if (target.style.transform !== "translate(0px, 0px)") {
+            target.style.transform = "translate(0px, 0px)";
+            target.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+          }
+        });
+      });
+    };
+
+    const handleMouseLeave = () => {
+      const elements = main.querySelectorAll("a, button");
+      elements.forEach((el) => {
+        const target = el as HTMLElement;
+        target.style.transform = "translate(0px, 0px)";
+        target.style.transition = "transform 0.5s cubic-bezier(0.33, 1, 0.68, 1)";
+      });
+    };
+
+    main.addEventListener("mousemove", handleMouseMove);
+    main.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      cancelAnimationFrame(rafId);
+      main.removeEventListener("mousemove", handleMouseMove);
+      main.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [activeSectionId]);
 
   // Sync state with URL path on mount and popstate (browser back/forward)
   useEffect(() => {
@@ -118,14 +181,18 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
     <div className="relative flex flex-col md:flex-row h-screen max-h-screen w-screen overflow-hidden bg-background text-foreground">
       {/* Mobile Top Navigation */}
       <header className="flex flex-col z-50 bg-nav-bg border-b border-nav-border md:hidden shrink-0">
-        <a href="/" className="py-4 text-center cursor-pointer relative z-50">
-          <h1 className="text-xl font-bold tracking-tight text-nav-foreground">
-            Jordin Hipps
-          </h1>
-          <h2 className="text-sm tracking-tight text-nav-foreground/80">
-            Social Media Marketer
-          </h2>
-        </a>
+        <div className="py-4 flex justify-center">
+          <Magnetic strength={0.1}>
+            <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
+              <h1 className="text-xl font-bold tracking-tight text-nav-foreground">
+                Jordin Hipps
+              </h1>
+              <h2 className="text-sm tracking-tight text-nav-foreground/80">
+                Social Media Marketer
+              </h2>
+            </a>
+          </Magnetic>
+        </div>
         <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-nav-border/30">
           <WheelMenu
             items={menuItems}
@@ -138,14 +205,18 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
       {/* Desktop Sidebar Navigation */}
       <aside className="hidden md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
-        <a href="/" className="p-8 pb-0 text-center cursor-pointer relative z-50">
-          <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
-            Jordin Hipps
-          </h1>
-          <h2 className="text-sm tracking-tight text-nav-foreground/80">
-            Social Media Marketer
-          </h2>
-        </a>
+        <div className="p-8 pb-0 flex justify-center">
+          <Magnetic strength={0.1}>
+            <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
+              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
+                Jordin Hipps
+              </h1>
+              <h2 className="text-sm tracking-tight text-nav-foreground/80">
+                Social Media Marketer
+              </h2>
+            </a>
+          </Magnetic>
+        </div>
 
         <div className="flex-1 overflow-hidden relative flex items-center justify-center">
           <WheelMenu
@@ -156,13 +227,23 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         </div>
 
         <div className="p-8 pt-0 mx-auto text-center">
-          <div className="flex gap-4 text-sm">
-            <a href="#" className="text-nav-foreground/80 hover:text-nav-foreground">
-              LinkedIn
-            </a>
-            <a href="#" className="text-nav-foreground/80 hover:text-nav-foreground">
-              Email
-            </a>
+          <div className="flex gap-4 text-sm items-center justify-center">
+            <Magnetic strength={0.15}>
+              <a
+                href="#"
+                className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+              >
+                LinkedIn
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.15}>
+              <a
+                href="#"
+                className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+              >
+                Email
+              </a>
+            </Magnetic>
           </div>
         </div>
       </aside>

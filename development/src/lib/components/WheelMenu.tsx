@@ -2,6 +2,7 @@ import "@ncdai/react-wheel-picker/style.css";
 import * as WheelPickerPrimitive from "@ncdai/react-wheel-picker";
 import { cn } from "@/lib/utils";
 import React, { useMemo } from "react";
+import { Magnetic } from "./ui/Magnetic";
 
 // --- Wheel Picker Primitive Wrappers ---
 
@@ -59,14 +60,16 @@ function WheelPicker<T extends WheelPickerValue = string>({
               }
             }}
           >
-            <span
-              className={cn(
-                "text-center leading-snug",
-                isHorizontal ? "rotate-90 whitespace-nowrap" : "line-clamp-3 w-full",
-              )}
-            >
-              {opt.label}
-            </span>
+            <Magnetic strength={0.15} className="w-full flex items-center justify-center">
+              <span
+                className={cn(
+                  "text-center leading-snug",
+                  isHorizontal ? "rotate-90 whitespace-nowrap" : "line-clamp-3 w-full",
+                )}
+              >
+                {opt.label}
+              </span>
+            </Magnetic>
           </div>
         ),
       }))}

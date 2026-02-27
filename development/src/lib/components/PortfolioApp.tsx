@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { WheelMenu } from "./WheelMenu";
 import { SectionViewer } from "./SectionViewer";
 
@@ -90,15 +90,8 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
   const activeSection = sections.find((s) => s.id === activeSectionId);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (mainContentRef.current) {
-      mainContentRef.current.style.setProperty("--x", `${e.clientX}px`);
-      mainContentRef.current.style.setProperty("--y", `${e.clientY}px`);
-    }
-  }, []);
-
   // Animation Variants for separate entry/exit timing
-  const variants = {
+  const variants: Variants = {
     enter: (direction: "up" | "down") => ({
       opacity: 0,
       y: direction === "up" ? 1000 : -1000,
@@ -107,9 +100,9 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1,
+        duration: 3,
         ease: [0.16, 1, 0.3, 1],
-      },
+      } as any,
     },
     exit: (direction: "up" | "down") => ({
       opacity: 0,
@@ -125,14 +118,14 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
     <div className="relative flex flex-col md:flex-row h-screen max-h-screen w-screen overflow-hidden bg-background text-foreground">
       {/* Mobile Top Navigation */}
       <header className="flex flex-col z-50 bg-nav-bg border-b border-nav-border md:hidden shrink-0">
-        <div className="py-4 text-center">
+        <a href="/" className="py-4 text-center cursor-pointer relative z-50">
           <h1 className="text-xl font-bold tracking-tight text-nav-foreground">
             Jordin Hipps
           </h1>
           <h2 className="text-sm tracking-tight text-nav-foreground/80">
             Social Media Marketer
           </h2>
-        </div>
+        </a>
         <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-nav-border/30">
           <WheelMenu
             items={menuItems}
@@ -145,14 +138,14 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
       {/* Desktop Sidebar Navigation */}
       <aside className="hidden md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
-        <div className="p-8 pb-0 text-center">
+        <a href="/" className="p-8 pb-0 text-center cursor-pointer relative z-50">
           <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
             Jordin Hipps
           </h1>
           <h2 className="text-sm tracking-tight text-nav-foreground/80">
             Social Media Marketer
           </h2>
-        </div>
+        </a>
 
         <div className="flex-1 overflow-hidden relative flex items-center justify-center">
           <WheelMenu
@@ -164,16 +157,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
         <div className="p-8 pt-0 mx-auto text-center">
           <div className="flex gap-4 text-sm">
-            <a
-              href="#"
-              className="text-nav-foreground/80 hover:text-nav-foreground transition-colors"
-            >
+            <a href="#" className="text-nav-foreground/80 hover:text-nav-foreground">
               LinkedIn
             </a>
-            <a
-              href="#"
-              className="text-nav-foreground/80 hover:text-nav-foreground transition-colors"
-            >
+            <a href="#" className="text-nav-foreground/80 hover:text-nav-foreground">
               Email
             </a>
           </div>
@@ -183,20 +170,8 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       {/* Content Viewer Container (Using neutral defaults from CSS variables) */}
       <main
         ref={mainContentRef}
-        onMouseMove={handleMouseMove}
-        className="group flex-1 overflow-y-auto bg-content-bg text-content-foreground relative md:pl-24"
+        className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative md:pl-24"
       >
-        <div
-          className="pointer-events-none fixed inset-0 z-10 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-          style={{
-            backdropFilter: "blur(3px)",
-            WebkitBackdropFilter: "blur(3px)",
-            maskImage:
-              "radial-gradient(circle at var(--x) var(--y), transparent 150px, black 800px)",
-            WebkitMaskImage:
-              "radial-gradient(circle at var(--x) var(--y), transparent 150px, black 800px)",
-          }}
-        />
         <AnimatePresence mode="popLayout" initial={true} custom={direction}>
           {activeSection ? (
             <motion.div

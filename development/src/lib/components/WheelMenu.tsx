@@ -128,8 +128,8 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
           onValueChange={onSelect}
           onItemClick={onSelect}
           scrollSensitivity={7}
-          // Use 40px for horizontal (width of slot), 80px for vertical (height of slot)
-          optionItemHeight={isHorizontal ? 40 : 80}
+          // Use 35px for horizontal (width of slot), 70px for vertical (height of slot)
+          optionItemHeight={isHorizontal ? 35 : 70}
           isHorizontal={isHorizontal}
           visibleCount={20}
           classNames={{

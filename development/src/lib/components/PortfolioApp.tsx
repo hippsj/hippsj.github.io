@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WheelMenu } from "./WheelMenu";
 import { SectionViewer } from "./SectionViewer";
@@ -18,6 +18,7 @@ export interface PortfolioAppProps {
 export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) {
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
   const [direction, setDirection] = useState<"up" | "down">("up");
+  const mainContentRef = useRef<HTMLElement>(null);
 
   // Sync state with URL path on mount and popstate (browser back/forward)
   useEffect(() => {
@@ -59,6 +60,13 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       }
     }
   }, [activeSectionId, sections]);
+
+  // Reset scroll position when active section changes
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTop = 0;
+    }
+  }, [activeSectionId]);
 
   const handleSelect = useCallback(
     (id: string) => {
@@ -129,7 +137,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden mr-24 md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
+      <aside className="hidden md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
             Jordin Hipps
@@ -166,7 +174,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </aside>
 
       {/* Content Viewer Container (Using neutral defaults from CSS variables) */}
-      <main className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative">
+      <main
+        ref={mainContentRef}
+        className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative md:pl-24"
+      >
         <AnimatePresence mode="popLayout" initial={true} custom={direction}>
           {activeSection ? (
             <motion.div

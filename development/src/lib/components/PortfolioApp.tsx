@@ -184,10 +184,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         <div className="py-4 flex justify-center">
           <Magnetic strength={0.1}>
             <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
-              <h1 className="text-xl font-bold tracking-tight text-nav-foreground">
+              <h1 className="text-xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
                 Jordin Hipps
               </h1>
-              <h2 className="text-sm tracking-tight text-nav-foreground/80">
+              <h2 className="text-sm tracking-tight text-nav-foreground/80 whitespace-nowrap">
                 Social Media Marketer
               </h2>
             </a>
@@ -208,10 +208,10 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         <div className="p-8 pb-0 flex justify-center">
           <Magnetic strength={0.1}>
             <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
-              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
+              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
                 Jordin Hipps
               </h1>
-              <h2 className="text-sm tracking-tight text-nav-foreground/80">
+              <h2 className="text-sm tracking-tight text-nav-foreground/80 whitespace-nowrap">
                 Social Media Marketer
               </h2>
             </a>

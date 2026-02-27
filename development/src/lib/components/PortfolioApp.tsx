@@ -129,7 +129,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden m-4 rounded-4xl md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
+      <aside className="hidden m-24 rounded-4xl md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
             Jordin Hipps
@@ -176,7 +176,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
               initial="enter"
               animate="center"
               exit="exit"
-              className="container mx-auto max-w-3xl px-6 py-12 md:py-24 min-h-full flex flex-col justify-center"
+              className="container mx-auto md:mx-0 max-w-3xl px-6 py-12 md:py-24 min-h-full flex flex-col justify-center"
             >
               <SectionViewer
                 title={activeSection.title}

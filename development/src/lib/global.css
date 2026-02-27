@@ -37,6 +37,8 @@
   --color-nav-border: hsl(var(--nav-border));
   --color-nav-foreground: hsl(var(--nav-foreground));
 
+  --shadow-nav-pressed: var(--shadow-nav-pressed);
+
   --color-content-bg: hsl(var(--content-bg));
   --color-content-foreground: hsl(var(--content-foreground));
 
@@ -47,36 +49,55 @@
 }
 
 :root {
-  /* Global Saturated Purple Theme (Hue: 270, Saturation: 40%) */
-  --background: 0 0% 100%;
-  --foreground: 270 40% 5%;
-  --card: 270 40% 99%;
-  --card-foreground: 270 40% 5%;
-  --popover: 270 40% 99%;
-  --popover-foreground: 270 40% 5%;
-  --primary: 270 40% 12%;
-  --primary-foreground: 270 20% 98%;
-  --secondary: 270 40% 95%;
-  --secondary-foreground: 270 40% 12%;
-  --muted: 270 40% 95%;
-  --muted-foreground: 270 30% 40%;
-  --accent: 270 40% 95%;
-  --accent-foreground: 270 40% 12%;
-  --destructive: 0 84.2% 60.2%;
+  /* Vibrant Lilac & Deep Purple Theme */
+  --background: 270 50% 96%; /* Clearly Lavender */
+  --foreground: 275 80% 10%; /* Deep Plum */
+
+  --card: 270 40% 98%;
+  --card-foreground: 275 80% 10%;
+
+  --popover: 270 40% 98%;
+  --popover-foreground: 275 80% 10%;
+
+  --primary: 270 75% 55%; /* Electric Violet */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 270 40% 90%;
+  --secondary-foreground: 275 80% 20%;
+
+  --muted: 270 30% 90%;
+  --muted-foreground: 270 40% 40%;
+
+  --accent: 270 50% 88%;
+  --accent-foreground: 275 80% 20%;
+
+  --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 270 40% 90%;
-  --input: 270 40% 90%;
-  --ring: 270 30% 65%;
-  --radius: 0.5rem;
 
-  /* Navigation Sidebar/Header Theme (Hue 270, Sat 30, Light 65) */
-  --nav-bg: 270 30% 65%;
-  --nav-border: 270 30% 55%;
-  --nav-foreground: 0 0% 100%;
+  --border: 270 40% 85%;
+  --input: 270 40% 85%;
+  --ring: 270 75% 55%;
 
-  /* Content Area Theme (Neutral Defaults) */
-  --content-bg: var(--background);
-  --content-foreground: 240 10% 4%;
+  --radius: 1rem;
+
+  /* Neumorphism Settings */
+  --neu-dist: 6px;
+  --neu-blur: 16px;
+  --neu-shadow-dark: 270 50% 86%;
+  --neu-shadow-light: 270 50% 96%;
+
+  /* Navigation Sidebar/Header Theme (Neumorphic Pressed) */
+  --nav-bg: 270 50% 91%;
+  --nav-border: transparent;
+  --nav-foreground: var(--foreground);
+  --shadow-nav-pressed:
+    inset var(--neu-dist) var(--neu-dist) var(--neu-blur) hsl(var(--neu-shadow-dark)),
+    inset calc(var(--neu-dist) * -1) calc(var(--neu-dist) * -1) var(--neu-blur)
+      hsl(var(--neu-shadow-light));
+
+  /* Content Area Theme */
+  --content-bg: 270 50% 96%;
+  --content-foreground: 275 80% 10%;
 }
 
 @layer base {
@@ -85,5 +106,10 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+  }
+  aside,
+  header {
+    box-shadow: var(--shadow-nav-pressed);
+    @apply border-none p-6;
   }
 }

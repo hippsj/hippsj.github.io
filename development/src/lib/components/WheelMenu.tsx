@@ -110,7 +110,7 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
     <div
       className={cn(
         "flex h-full w-full items-center justify-center overflow-hidden",
-        isHorizontal && "pt-4",
+        isHorizontal ? "pt-4" : "pb-[20%]",
       )}
     >
       <WheelPickerWrapper

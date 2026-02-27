@@ -94,21 +94,21 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   const variants = {
     enter: (direction: "up" | "down") => ({
       opacity: 0,
-      y: direction === "up" ? 20 : -20,
+      y: direction === "up" ? 1000 : -1000,
     }),
     center: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeInOut",
+        duration: 1,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
     exit: (direction: "up" | "down") => ({
       opacity: 0,
       y: direction === "up" ? -20 : 20,
       transition: {
-        duration: 0.4,
+        duration: 0.01,
         ease: "easeInOut",
       },
     }),

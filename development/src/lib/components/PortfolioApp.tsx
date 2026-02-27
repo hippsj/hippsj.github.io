@@ -146,12 +146,46 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
     [activeSectionId, sections],
   );
 
+  const handleNext = useCallback(
+    (id: string) => {
+      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+      const containerSelector = isDesktop ? "aside" : "header";
+      const selector = `${containerSelector} [data-wheel-item-id="${id}"]`;
+      const element = document.querySelector(selector) as HTMLElement;
+
+      if (element) {
+        // Dispatch mousedown and mouseup to trigger the WheelPicker's internal logic
+        const mousedownEvent = new MouseEvent("mousedown", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        });
+        const mouseupEvent = new MouseEvent("mouseup", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        });
+
+        element.dispatchEvent(mousedownEvent);
+        element.dispatchEvent(mouseupEvent);
+      } else {
+        handleSelect(id);
+      }
+    },
+    [handleSelect],
+  );
+
   const menuItems = useMemo(
     () => sections.map((s) => ({ id: s.id, title: s.title })),
     [sections],
   );
 
   const activeSection = sections.find((s) => s.id === activeSectionId);
+  const activeSectionIndex = sections.findIndex((s) => s.id === activeSectionId);
+  const nextSection =
+    activeSectionIndex !== -1 && activeSectionIndex < sections.length - 1
+      ? sections[activeSectionIndex + 1]
+      : null;
 
   // Animation Variants for separate entry/exit timing
   const variants: Variants = {
@@ -268,6 +302,12 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
                 title={activeSection.title}
                 description={activeSection.description}
                 html={activeSection.html || ""}
+                nextSection={
+                  nextSection
+                    ? { id: nextSection.id, title: nextSection.title }
+                    : undefined
+                }
+                onNext={handleNext}
               />
             </motion.div>
           ) : (

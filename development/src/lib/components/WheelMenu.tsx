@@ -53,12 +53,7 @@ function WheelPicker<T extends WheelPickerValue = string>({
         label: (
           <div
             className="w-full h-full flex items-center justify-center px-2"
-            onClick={(e) => {
-              // Intercept click for immediate selection
-              if (onItemClick) {
-                onItemClick(opt.value);
-              }
-            }}
+            data-wheel-item-id={opt.value}
           >
             <Magnetic strength={0.15} className="w-full flex items-center justify-center">
               <span

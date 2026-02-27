@@ -90,6 +90,13 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
   const activeSection = sections.find((s) => s.id === activeSectionId);
 
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (mainContentRef.current) {
+      mainContentRef.current.style.setProperty("--x", `${e.clientX}px`);
+      mainContentRef.current.style.setProperty("--y", `${e.clientY}px`);
+    }
+  }, []);
+
   // Animation Variants for separate entry/exit timing
   const variants = {
     enter: (direction: "up" | "down") => ({
@@ -176,8 +183,20 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       {/* Content Viewer Container (Using neutral defaults from CSS variables) */}
       <main
         ref={mainContentRef}
-        className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative md:pl-24"
+        onMouseMove={handleMouseMove}
+        className="group flex-1 overflow-y-auto bg-content-bg text-content-foreground relative md:pl-24"
       >
+        <div
+          className="pointer-events-none fixed inset-0 z-10 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+          style={{
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
+            maskImage:
+              "radial-gradient(circle at var(--x) var(--y), transparent 150px, black 800px)",
+            WebkitMaskImage:
+              "radial-gradient(circle at var(--x) var(--y), transparent 150px, black 800px)",
+          }}
+        />
         <AnimatePresence mode="popLayout" initial={true} custom={direction}>
           {activeSection ? (
             <motion.div

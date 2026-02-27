@@ -128,7 +128,8 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
           classNames={{
             optionItem:
               "text-lg text-nav-foreground/80 transition-all hover:text-nav-foreground duration-300",
-            highlightWrapper: "bg-nav-bg border-none data-rwp-focused:ring-0",
+            highlightWrapper:
+              "bg-nav-bg border-none data-rwp-focused:ring-0 rounded-full",
             highlightItem: "font-bold text-nav-foreground opacity-100",
           }}
         />

@@ -86,22 +86,22 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
   const variants = {
     enter: (direction: "up" | "down") => ({
       opacity: 0,
-      y: direction === "up" ? 40 : -40,
+      y: direction === "up" ? 20 : -20,
     }),
     center: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1.5, // Slower entry
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.6,
+        ease: "easeInOut",
       },
     },
     exit: (direction: "up" | "down") => ({
       opacity: 0,
-      y: direction === "up" ? -40 : 40,
+      y: direction === "up" ? -20 : 20,
       transition: {
-        duration: 0.01, // Near zero duration
-        ease: "easeIn",
+        duration: 0.4,
+        ease: "easeInOut",
       },
     }),
   };
@@ -129,7 +129,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden m-24 rounded-4xl md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
+      <aside className="hidden mr-24 md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-nav-foreground">
             Jordin Hipps
@@ -167,7 +167,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
       {/* Content Viewer Container (Using neutral defaults from CSS variables) */}
       <main className="flex-1 overflow-y-auto bg-content-bg text-content-foreground relative">
-        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+        <AnimatePresence mode="popLayout" initial={true} custom={direction}>
           {activeSection ? (
             <motion.div
               key={activeSection.id}

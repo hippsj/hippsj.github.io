@@ -50,7 +50,7 @@
 
 :root {
   /* Vibrant Lilac & Deep Purple Theme */
-  --background: 281 44% 86%; /* Soft Lilac Mid-tone */
+  --background: 270 60% 85%; /* Saturated Lavender */
   --foreground: 275 80% 10%; /* Deep Plum */
 
   --card: 270 40% 98%;
@@ -78,14 +78,14 @@
   --input: 270 40% 85%;
   --ring: 270 75% 55%;
 
-  --radius: 51px;
+  --radius: 0;
 
-  /* Navigation Sidebar/Header Theme (Neumorphic Concave) */
+  /* Navigation Sidebar/Header Theme (Neumorphic Crease) */
   --nav-bg: var(--background);
   --nav-border: transparent;
   --nav-foreground: var(--foreground);
-  --nav-gradient: linear-gradient(145deg, #ceb9d9, #f5dbff);
-  --shadow-nav-concave: 24px 24px 47px #c5b0cf, -24px -24px 47px #ffeaff;
+  --shadow-nav-concave:
+    inset -1px 0 2px rgba(0, 0, 0, 0.1), 1px 0 2px rgba(0, 0, 0, 0.05);
 
   /* Content Area Theme */
   --content-bg: var(--background);
@@ -101,7 +101,7 @@
   }
   aside,
   header {
-    background: var(--nav-gradient);
+    background: var(--nav-bg);
     box-shadow: var(--shadow-nav-concave);
     @apply border-none p-6;
   }

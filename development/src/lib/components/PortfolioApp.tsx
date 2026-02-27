@@ -163,7 +163,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       opacity: 1,
       y: 0,
       transition: {
-        duration: 3,
+        duration: 1,
         ease: [0.16, 1, 0.3, 1],
       } as any,
     },

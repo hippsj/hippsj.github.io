@@ -45,6 +45,7 @@ export function PortfolioApp({
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
   const [wheelActiveId, setWheelActiveId] = useState<string>(initialSectionId || "");
   const [direction, setDirection] = useState<"up" | "down">("up");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const mainContentRef = useRef<HTMLElement>(null);
 
   // Magnetic effect for content area links and buttons
@@ -169,6 +170,7 @@ export function PortfolioApp({
         setActiveSectionId(id);
       }
       setWheelActiveId(id);
+      setIsMenuOpen(false);
     },
     [activeSectionId, sections],
   );
@@ -184,6 +186,7 @@ export function PortfolioApp({
         }
         setActiveSectionId(id);
       }
+      setIsMenuOpen(false);
     },
     [activeSectionId, sections],
   );
@@ -276,29 +279,124 @@ export function PortfolioApp({
   return (
     <div className="relative flex flex-col md:flex-row h-screen max-h-screen w-screen overflow-hidden bg-background text-foreground">
       {/* Mobile Top Navigation */}
-      <header className="flex flex-col z-50 bg-nav-bg border-b border-nav-border md:hidden shrink-0">
-        <div className="py-4 flex justify-center">
-          <Magnetic strength={0.1}>
-            <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
-              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
-                {user.userName}
-              </h1>
-              <h2 className="text-xs tracking-tight text-nav-foreground/80 whitespace-nowrap">
-                {user.jobTitle}
-              </h2>
-            </a>
-          </Magnetic>
-        </div>
-        <div className="h-24 overflow-hidden relative flex items-center justify-center border-t border-nav-border/30">
-          <WheelMenu
-            items={menuItems}
-            onSelect={handleSelect}
-            onItemClick={handleItemClick}
-            selectedId={wheelActiveId}
-            isHorizontal={true}
-          />
-        </div>
+      <header className="flex flex-row justify-between items-center z-40 bg-nav-bg border-b border-nav-border md:hidden shrink-0 p-4">
+        {/* Hamburger Menu Button */}
+        <button onClick={() => setIsMenuOpen(true)} className="p-2 -ml-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        {/* Centered Name/Title */}
+        <Magnetic strength={0.1}>
+          <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
+            <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
+              {user.userName}
+            </h1>
+            <h2 className="text-xs tracking-tight text-nav-foreground/80 whitespace-nowrap">
+              {user.jobTitle}
+            </h2>
+          </a>
+        </Magnetic>
+
+        {/* Spacer to keep title centered */}
+        <div className="w-10 h-10" />
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-0 left-0 w-full h-full bg-nav-bg z-50 flex flex-col md:hidden"
+          >
+            {/* Top Bar with Close Button */}
+            <div className="flex justify-between items-center shrink-0 p-4 border-b border-nav-border/30">
+              {/* Spacer */}
+              <div className="w-10 h-10" />
+              <Magnetic strength={0.1}>
+                <a
+                  href="/"
+                  className="text-center cursor-pointer relative z-50 block px-4"
+                >
+                  <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
+                    {user.userName}
+                  </h1>
+                </a>
+              </Magnetic>
+              <button onClick={() => setIsMenuOpen(false)} className="p-2 -mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* Vertical Wheel Menu */}
+            <div className="flex-1 overflow-hidden relative flex items-center justify-center">
+              <WheelMenu
+                items={menuItems}
+                onSelect={handleSelect}
+                onItemClick={handleItemClick}
+                selectedId={wheelActiveId}
+              />
+            </div>
+
+            {/* Footer with Socials */}
+            <div className="p-8 pt-0 mx-auto text-center">
+              <div className="flex gap-4 text-base items-center justify-center">
+                {user.userSocials.map((social) => (
+                  <Magnetic key={social.title} strength={0.15}>
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+                    >
+                      {social.title}
+                    </a>
+                  </Magnetic>
+                ))}
+                {user.userEmail && (
+                  <Magnetic strength={0.15}>
+                    <a
+                      href={`mailto:${user.userEmail}`}
+                      className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+                    >
+                      Email
+                    </a>
+                  </Magnetic>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Desktop Sidebar Navigation */}
       <aside className="hidden md:flex md:flex-col md:w-[25vw] min-w-[300px] border border-nav-border bg-nav-bg shrink-0">

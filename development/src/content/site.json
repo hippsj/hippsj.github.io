@@ -2,10 +2,5 @@
   "siteTitle": "Jordin Hipps",
   "siteDescription": "Jordin Hipps is a social media marketer.",
   "emptyStateMessage": "Select a project to begin.",
-  "theme": {
-    "background": "270 50% 96%",
-    "foreground": "275 80% 10%",
-    "navBg": "270 25% 55%",
-    "navForeground": "270 10% 93%"
-  }
+  "themeMode": "light"
 }

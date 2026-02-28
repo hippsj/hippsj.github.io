@@ -84,6 +84,7 @@
   --nav-bg: 270 25% 55%;
   --nav-border: transparent;
   --nav-foreground: 270 10% 93%;
+  --nav-text-shadow: 0 1px 3px hsla(270 25% 52%);
   --shadow-nav-concave:
     inset -3px 0 6px rgba(255, 255, 255, 0.05), 3px 0 6px rgba(255, 255, 255, 0.05),
     inset -15px 0 20px -10px rgba(0, 0, 0, 0.15);
@@ -91,6 +92,100 @@
   /* Content Area Theme */
   --content-bg: var(--background);
   --content-foreground: 275 80% 10%;
+}
+
+.dark {
+  --background: 280 80% 6%; /* Deep, saturated violet-black */
+  --foreground: 270 80% 98%; /* Brilliant white with a hint of purple */
+
+  --card: 280 70% 8%;
+  --card-foreground: 270 80% 98%;
+
+  --popover: 280 70% 8%;
+  --popover-foreground: 270 80% 98%;
+
+  --primary: 280 90% 65%; /* Bright neon purple */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 280 60% 15%;
+  --secondary-foreground: 270 80% 98%;
+
+  --muted: 280 40% 15%;
+  --muted-foreground: 280 40% 70%;
+
+  --accent: 280 80% 25%;
+  --accent-foreground: 270 80% 98%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 280 60% 20%;
+  --input: 280 60% 20%;
+  --ring: 280 90% 65%;
+
+  --nav-bg: 280 80% 4%; /* Even darker for depth */
+  --nav-border: transparent;
+  --nav-foreground: 270 80% 98%;
+
+  /* Multi-layered text shadow for a bloomy, neon glow effect */
+  --nav-text-shadow:
+    0 0 5px hsla(280, 90%, 65%, 0.4), 0 0 15px hsla(280, 90%, 65%, 0.3),
+    0 0 30px hsla(280, 90%, 65%, 0.1);
+
+  /* Deep, soft inset shadow to make the menu look embedded and slightly glowing at the edge */
+  --shadow-nav-concave:
+    inset -5px 0 15px hsla(280, 90%, 65%, 0.05), 3px 0 20px hsla(280, 90%, 65%, 0.05),
+    inset -25px 0 40px -10px rgba(0, 0, 0, 0.9);
+
+  --content-bg: var(--background);
+  --content-foreground: 270 80% 92%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: 280 80% 6%;
+    --foreground: 270 80% 98%;
+
+    --card: 280 70% 8%;
+    --card-foreground: 270 80% 98%;
+
+    --popover: 280 70% 8%;
+    --popover-foreground: 270 80% 98%;
+
+    --primary: 280 90% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 280 60% 15%;
+    --secondary-foreground: 270 80% 98%;
+
+    --muted: 280 40% 15%;
+    --muted-foreground: 280 40% 70%;
+
+    --accent: 280 80% 25%;
+    --accent-foreground: 270 80% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 280 60% 20%;
+    --input: 280 60% 20%;
+    --ring: 280 90% 65%;
+
+    --nav-bg: 280 80% 4%;
+    --nav-border: transparent;
+    --nav-foreground: 270 80% 98%;
+
+    --nav-text-shadow:
+      0 0 5px hsla(280, 90%, 65%, 0.4), 0 0 15px hsla(280, 90%, 65%, 0.3),
+      0 0 30px hsla(280, 90%, 65%, 0.1);
+
+    --shadow-nav-concave:
+      inset -5px 0 15px hsla(280, 90%, 65%, 0.05), 3px 0 20px hsla(280, 90%, 65%, 0.05),
+      inset -25px 0 40px -10px rgba(0, 0, 0, 0.9);
+
+    --content-bg: var(--background);
+    --content-foreground: 270 80% 92%;
+  }
 }
 
 @layer base {
@@ -104,7 +199,7 @@
   header {
     background: var(--nav-bg);
     box-shadow: var(--shadow-nav-concave);
-    text-shadow: 0 1px 3px hsla(270 25% 52%);
+    text-shadow: var(--nav-text-shadow);
     @apply border-none p-6;
   }
 }

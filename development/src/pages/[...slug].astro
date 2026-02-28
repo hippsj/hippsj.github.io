@@ -50,7 +50,7 @@ const description = currentSection?.description || site.siteDescription;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class={site.themeMode === "auto" ? "" : site.themeMode}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -72,22 +72,6 @@ const description = currentSection?.description || site.siteDescription;
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-
-    {
-      site.theme && (
-        <style
-          is:inline
-          set:html={`
-        :root {
-          --background: ${site.theme.background};
-          --foreground: ${site.theme.foreground};
-          --nav-bg: ${site.theme.navBg};
-          --nav-foreground: ${site.theme.navForeground};
-        }
-      `}
-        />
-      )
-    }
   </head>
   <body class="bg-background text-foreground antialiased overflow-hidden">
     <PortfolioApp

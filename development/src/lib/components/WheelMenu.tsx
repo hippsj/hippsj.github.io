@@ -137,7 +137,7 @@ export function WheelMenu({
           value={activeValue}
           onValueChange={onSelect}
           onItemClick={onItemClick}
-          scrollSensitivity={7}
+          scrollSensitivity={5}
           // Use 40px for horizontal (width of slot), 80px for vertical (height of slot)
           optionItemHeight={isHorizontal ? 40 : 80}
           isHorizontal={isHorizontal}
@@ -147,7 +147,8 @@ export function WheelMenu({
               "text-2xl text-nav-foreground/80 transition-all hover:text-nav-foreground duration-300",
             highlightWrapper:
               "bg-nav-bg border-none data-rwp-focused:ring-0 rounded-full",
-            highlightItem: "font-bold text-nav-foreground opacity-100",
+            highlightItem:
+              "font-bold text-nav-foreground opacity-100 [text-shadow:var(--nav-text-shadow)]",
           }}
         />
       </WheelPickerWrapper>

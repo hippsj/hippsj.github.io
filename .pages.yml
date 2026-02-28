@@ -43,22 +43,17 @@ content:
       - name: emptyStateMessage
         label: Empty State Message
         type: string
-      - name: theme
-        label: Theme Colors (HSL)
-        type: object
-        fields:
-          - name: background
-            label: Background
-            type: string
-          - name: foreground
-            label: Foreground
-            type: string
-          - name: navBg
-            label: Sidebar Background
-            type: string
-          - name: navForeground
-            label: Sidebar Text
-            type: string
+      - name: themeMode
+        label: Theme Mode
+        type: select
+        options:
+          - label: Auto (System)
+            value: auto
+          - label: Light
+            value: light
+          - label: Dark
+            value: dark
+        default: auto
   - name: user
     label: 🤠 User Information
     path: development/src/content/user.json

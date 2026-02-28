@@ -1,16 +1,17 @@
 ---
-title: Six Words To Test The Wheel
+published: false
 id: very-long
-description: This is a generated sample project with a 6-word title to demonstrate how the infinite scrolling wheel and content areas handle text length.
 order: 3
-published: true
+title: Six Words To Test The Wheel
+description: This is a generated sample project with a 6-word title to
+  demonstrate how the infinite scrolling wheel and content areas handle text
+  length.
 ---
-
 # Six Words To Test The Wheel
 
 This project demonstrates the system's capability to handle technical documentation, specifically focusing on syntax highlighting, code blocks, and monospace fonts.
 
-## 1. Installation
+## 1\. Installation
 
 To get started with the "Six Words" library, you'll need to install it via your package manager. We support both `npm` and `yarn`.
 
@@ -30,7 +31,7 @@ echo "WHEEL_RADIUS=500" >> .env
 echo "ROTATION_SPEED=0.5" >> .env
 ```
 
-## 2. Configuration
+## 2\. Configuration
 
 The library relies on a rigid configuration schema. Below is an example of a `wheel.config.json` file. Notice how the nested objects are rendered.
 
@@ -67,7 +68,7 @@ ui:
   theme: dark
 ```
 
-## 3. Usage Example
+## 3\. Usage Example
 
 Here is a basic example of how to initialize the wheel and add event listeners.
 
@@ -118,7 +119,7 @@ wheel.on_spin = on_spin
 wheel.mount()
 ```
 
-## 4. Advanced Concepts
+## 4\. Advanced Concepts
 
 When building complex interfaces, you might need to extend the default `Item` class.
 
@@ -144,7 +145,7 @@ class AdvancedItem extends Item {
 }
 ```
 
-## 5. Troubleshooting
+## 5\. Troubleshooting
 
 If you encounter the `RotationError: NaN` exception, it usually means the `friction` coefficient is set to `0`.
 

@@ -47,12 +47,13 @@ content:
         label: Theme Mode
         type: select
         options:
-          - label: Auto (System)
-            value: auto
-          - label: Light
-            value: light
-          - label: Dark
-            value: dark
+          values:
+            - label: Auto (System)
+              value: auto
+            - label: Light
+              value: light
+            - label: Dark
+              value: dark
         default: auto
   - name: user
     label: 🤠 User Information

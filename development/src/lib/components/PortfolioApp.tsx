@@ -56,7 +56,6 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
 
             target.style.transform = `translate(${moveX}px, ${moveY}px)`;
             target.style.transition = "transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)";
-            target.style.display = "inline-block"; // Ensure transform works
           } else if (target.style.transform !== "translate(0px, 0px)") {
             target.style.transform = "translate(0px, 0px)";
             target.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";

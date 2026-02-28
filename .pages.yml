@@ -13,6 +13,13 @@ content:
         label: Published
         type: boolean
         default: false
+      - name: id
+        label: Slug (ID)
+        type: string
+      - name: order
+        label: Order
+        type: number
+        default: 999
       - name: title
         label: Title
         type: string
@@ -33,6 +40,25 @@ content:
       - name: siteDescription
         label: Site Description
         type: string
+      - name: emptyStateMessage
+        label: Empty State Message
+        type: string
+      - name: theme
+        label: Theme Colors (HSL)
+        type: object
+        fields:
+          - name: background
+            label: Background
+            type: string
+          - name: foreground
+            label: Foreground
+            type: string
+          - name: navBg
+            label: Sidebar Background
+            type: string
+          - name: navForeground
+            label: Sidebar Text
+            type: string
   - name: user
     label: 🤠 User Information
     path: development/src/content/user.json
@@ -40,6 +66,9 @@ content:
     fields:
       - name: userName
         label: Full Name
+        type: string
+      - name: jobTitle
+        label: Job Title
         type: string
       - name: userEmail
         label: Email

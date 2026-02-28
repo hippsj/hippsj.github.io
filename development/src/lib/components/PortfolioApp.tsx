@@ -11,12 +11,37 @@ export interface Section {
   description?: string;
 }
 
+export interface UserSocial {
+  title: string;
+  url: string;
+}
+
+export interface UserInfo {
+  userName: string;
+  jobTitle: string;
+  userEmail: string;
+  userSocials: UserSocial[];
+}
+
+export interface SiteInfo {
+  siteTitle: string;
+  siteDescription: string;
+  emptyStateMessage: string;
+}
+
 export interface PortfolioAppProps {
   sections: Section[];
+  user: UserInfo;
+  site: SiteInfo;
   initialSectionId?: string;
 }
 
-export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) {
+export function PortfolioApp({
+  sections,
+  user,
+  site,
+  initialSectionId,
+}: PortfolioAppProps) {
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
   const [wheelActiveId, setWheelActiveId] = useState<string>(initialSectionId || "");
   const [direction, setDirection] = useState<"up" | "down">("up");
@@ -255,11 +280,11 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         <div className="py-4 flex justify-center">
           <Magnetic strength={0.1}>
             <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
-              <h1 className="text-xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
-                Jordin Hipps
+              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
+                {user.userName}
               </h1>
-              <h2 className="text-sm tracking-tight text-nav-foreground/80 whitespace-nowrap">
-                Social Media Marketer
+              <h2 className="text-xs tracking-tight text-nav-foreground/80 whitespace-nowrap">
+                {user.jobTitle}
               </h2>
             </a>
           </Magnetic>
@@ -276,15 +301,15 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       </header>
 
       {/* Desktop Sidebar Navigation */}
-      <aside className="hidden md:flex md:flex-col md:w-64 border border-nav-border bg-nav-bg shrink-0">
+      <aside className="hidden md:flex md:flex-col md:w-[25vw] min-w-[300px] border border-nav-border bg-nav-bg shrink-0">
         <div className="p-8 pb-0 flex justify-center">
           <Magnetic strength={0.1}>
             <a href="/" className="text-center cursor-pointer relative z-50 block px-4">
-              <h1 className="text-2xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
-                Jordin Hipps
+              <h1 className="text-3xl font-bold tracking-tight text-nav-foreground whitespace-nowrap">
+                {user.userName}
               </h1>
-              <h2 className="text-sm tracking-tight text-nav-foreground/80 whitespace-nowrap">
-                Social Media Marketer
+              <h2 className="text-base tracking-tight text-nav-foreground/80 whitespace-nowrap">
+                {user.jobTitle}
               </h2>
             </a>
           </Magnetic>
@@ -300,23 +325,29 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         </div>
 
         <div className="p-8 pt-0 mx-auto text-center">
-          <div className="flex gap-4 text-sm items-center justify-center">
-            <Magnetic strength={0.15}>
-              <a
-                href="#"
-                className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
-              >
-                LinkedIn
-              </a>
-            </Magnetic>
-            <Magnetic strength={0.15}>
-              <a
-                href="#"
-                className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
-              >
-                Email
-              </a>
-            </Magnetic>
+          <div className="flex gap-4 text-base items-center justify-center">
+            {user.userSocials.map((social) => (
+              <Magnetic key={social.title} strength={0.15}>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+                >
+                  {social.title}
+                </a>
+              </Magnetic>
+            ))}
+            {user.userEmail && (
+              <Magnetic strength={0.15}>
+                <a
+                  href={`mailto:${user.userEmail}`}
+                  className="text-nav-foreground/80 hover:text-nav-foreground p-2 block"
+                >
+                  Email
+                </a>
+              </Magnetic>
+            )}
           </div>
         </div>
       </aside>
@@ -357,7 +388,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
               exit={{ opacity: 0 }}
               className="flex h-full items-center justify-center"
             >
-              <p className="opacity-60">Select a project to begin.</p>
+              <p className="opacity-60">{site.emptyStateMessage}</p>
             </motion.div>
           )}
         </AnimatePresence>

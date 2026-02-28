@@ -24,7 +24,7 @@ function WheelPickerWrapper({ className, isHorizontal, ...props }: WrapperProps)
     <WheelPickerPrimitive.WheelPickerWrapper
       className={cn(
         "rounded-lg border-none px-1 transition-transform duration-300",
-        isHorizontal ? "w-auto h-screen -rotate-90 origin-center scale-125" : "w-56",
+        isHorizontal ? "w-auto h-screen -rotate-90 origin-center scale-125" : "w-full",
         className,
       )}
       {...props}
@@ -138,13 +138,13 @@ export function WheelMenu({
           onValueChange={onSelect}
           onItemClick={onItemClick}
           scrollSensitivity={7}
-          // Use 35px for horizontal (width of slot), 70px for vertical (height of slot)
-          optionItemHeight={isHorizontal ? 35 : 70}
+          // Use 40px for horizontal (width of slot), 80px for vertical (height of slot)
+          optionItemHeight={isHorizontal ? 40 : 80}
           isHorizontal={isHorizontal}
           visibleCount={20}
           classNames={{
             optionItem:
-              "text-lg text-nav-foreground/80 transition-all hover:text-nav-foreground duration-300",
+              "text-2xl text-nav-foreground/80 transition-all hover:text-nav-foreground duration-300",
             highlightWrapper:
               "bg-nav-bg border-none data-rwp-focused:ring-0 rounded-full",
             highlightItem: "font-bold text-nav-foreground opacity-100",

@@ -1,6 +1,7 @@
 ---
 import "@/lib/global.css";
 import site from "@/content/site.json";
+import user from "@/content/user.json";
 import { PortfolioApp } from "@/lib/components/PortfolioApp";
 import { getCollection } from "astro:content";
 import { renderMarkdown } from "@/lib/markdown";
@@ -71,8 +72,30 @@ const description = currentSection?.description || site.siteDescription;
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+
+    {
+      site.theme && (
+        <style
+          is:inline
+          set:html={`
+        :root {
+          --background: ${site.theme.background};
+          --foreground: ${site.theme.foreground};
+          --nav-bg: ${site.theme.navBg};
+          --nav-foreground: ${site.theme.navForeground};
+        }
+      `}
+        />
+      )
+    }
   </head>
   <body class="bg-background text-foreground antialiased overflow-hidden">
-    <PortfolioApp client:load sections={sections} initialSectionId={initialSectionId} />
+    <PortfolioApp
+      client:load
+      sections={sections}
+      user={user}
+      site={site}
+      initialSectionId={initialSectionId}
+    />
   </body>
 </html>

@@ -153,16 +153,24 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
       const element = document.querySelector(selector) as HTMLElement;
 
       if (element) {
+        const rect = element.getBoundingClientRect();
+        const clientX = rect.left + rect.width / 2;
+        const clientY = rect.top + rect.height / 2;
+
         // Dispatch mousedown and mouseup to trigger the WheelPicker's internal logic
         const mousedownEvent = new MouseEvent("mousedown", {
           bubbles: true,
           cancelable: true,
           view: window,
+          clientX,
+          clientY,
         });
         const mouseupEvent = new MouseEvent("mouseup", {
           bubbles: true,
           cancelable: true,
           view: window,
+          clientX,
+          clientY,
         });
 
         element.dispatchEvent(mousedownEvent);

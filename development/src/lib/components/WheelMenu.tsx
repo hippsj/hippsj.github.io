@@ -54,6 +54,11 @@ function WheelPicker<T extends WheelPickerValue = string>({
           <div
             className="w-full h-full flex items-center justify-center px-2"
             data-wheel-item-id={opt.value}
+            onClick={() => {
+              if (onItemClick) {
+                onItemClick(opt.value);
+              }
+            }}
           >
             <Magnetic strength={0.15} className="w-full flex items-center justify-center">
               <span
@@ -86,11 +91,18 @@ function WheelPicker<T extends WheelPickerValue = string>({
 export interface WheelMenuProps {
   items: { id: string; title: string }[];
   onSelect: (id: string) => void;
+  onItemClick?: (id: string) => void;
   selectedId: string;
   isHorizontal?: boolean;
 }
 
-export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMenuProps) {
+export function WheelMenu({
+  items,
+  onSelect,
+  onItemClick,
+  selectedId,
+  isHorizontal,
+}: WheelMenuProps) {
   const options: WheelPickerOption[] = useMemo(
     () =>
       items.map((item) => ({
@@ -124,7 +136,7 @@ export function WheelMenu({ items, onSelect, selectedId, isHorizontal }: WheelMe
           options={options}
           value={activeValue}
           onValueChange={onSelect}
-          onItemClick={onSelect}
+          onItemClick={onItemClick}
           scrollSensitivity={7}
           // Use 35px for horizontal (width of slot), 70px for vertical (height of slot)
           optionItemHeight={isHorizontal ? 35 : 70}

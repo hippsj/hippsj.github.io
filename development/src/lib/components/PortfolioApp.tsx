@@ -18,6 +18,7 @@ export interface PortfolioAppProps {
 
 export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) {
   const [activeSectionId, setActiveSectionId] = useState<string>(initialSectionId || "");
+  const [wheelActiveId, setWheelActiveId] = useState<string>(initialSectionId || "");
   const [direction, setDirection] = useState<"up" | "down">("up");
   const mainContentRef = useRef<HTMLElement>(null);
 
@@ -100,6 +101,7 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
           setDirection(nextIndex > currentIndex ? "up" : "down");
         }
         setActiveSectionId(nextId);
+        setWheelActiveId(nextId);
       }
     };
 
@@ -141,12 +143,39 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         }
         setActiveSectionId(id);
       }
+      setWheelActiveId(id);
+    },
+    [activeSectionId, sections],
+  );
+
+  const handleItemClick = useCallback(
+    (id: string) => {
+      if (id !== activeSectionId) {
+        const currentIndex = sections.findIndex((s) => s.id === activeSectionId);
+        const nextIndex = sections.findIndex((s) => s.id === id);
+
+        if (currentIndex !== -1 && nextIndex !== -1) {
+          setDirection(nextIndex > currentIndex ? "up" : "down");
+        }
+        setActiveSectionId(id);
+      }
     },
     [activeSectionId, sections],
   );
 
   const handleNext = useCallback(
     (id: string) => {
+      // Immediately update content state for responsiveness
+      if (id !== activeSectionId) {
+        const currentIndex = sections.findIndex((s) => s.id === activeSectionId);
+        const nextIndex = sections.findIndex((s) => s.id === id);
+
+        if (currentIndex !== -1 && nextIndex !== -1) {
+          setDirection(nextIndex > currentIndex ? "up" : "down");
+        }
+        setActiveSectionId(id);
+      }
+
       const isDesktop = window.matchMedia("(min-width: 768px)").matches;
       const containerSelector = isDesktop ? "aside" : "header";
       const selector = `${containerSelector} [data-wheel-item-id="${id}"]`;
@@ -176,10 +205,11 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
         element.dispatchEvent(mousedownEvent);
         element.dispatchEvent(mouseupEvent);
       } else {
-        handleSelect(id);
+        // Fallback: update wheel state manually if element not found
+        setWheelActiveId(id);
       }
     },
-    [handleSelect],
+    [activeSectionId, sections],
   );
 
   const menuItems = useMemo(
@@ -238,7 +268,8 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
           <WheelMenu
             items={menuItems}
             onSelect={handleSelect}
-            selectedId={activeSectionId}
+            onItemClick={handleItemClick}
+            selectedId={wheelActiveId}
             isHorizontal={true}
           />
         </div>
@@ -263,7 +294,8 @@ export function PortfolioApp({ sections, initialSectionId }: PortfolioAppProps) 
           <WheelMenu
             items={menuItems}
             onSelect={handleSelect}
-            selectedId={activeSectionId}
+            onItemClick={handleItemClick}
+            selectedId={wheelActiveId}
           />
         </div>
 

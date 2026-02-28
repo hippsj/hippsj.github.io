@@ -6,8 +6,6 @@ title: Startup Marketing Proposal
 description: Marketing proposal for small business owner, Flora Makeup Studio. Created social media posts, competitor and industry trend analysis, and marketing strategy.
 ---
 
-![](/media/Simple%20Minimalist%20Real%20Estate%20Logo.png)
-
 This proposal focused on helping local makeup artist, Flora Zamora, establish a **strong foundation for growth in North Carolina**, specifically the Triad area. I worked with a team of three in bringing this proposal to life with industry research, marketing strategy and mix, and social media posts.
 
 For the proposal, I conducted an in-depth industry trend and customer analysis to guide brand positioning and service offerings. By analyzing data from **Mintel** and **IBISWorld** data, I uncovered that over 88% of women ages 18-54 years old regularly wear makeup, which showcased a strong demand for makeup services. I identified new growth opportunities, such as teen event makeup and inclusive services for men.
